@@ -1,4 +1,5 @@
 import {
+    existsSync,
     mkdirSync,
     readFileSync,
     readdirSync,
@@ -98,6 +99,11 @@ function setPageMetadata(html, {
     canonicalUrl,
     robots = "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
     type = "website",
+    imageUrl,
+    imageType,
+    imageWidth,
+    imageHeight,
+    imageAlt,
     structuredData,
 }) {
     let output = setTitle(html, title);
@@ -122,6 +128,21 @@ function setPageMetadata(html, {
         output = removeCanonical(output);
     }
 
+    if (imageUrl) {
+        [
+            ["property", "og:image", imageUrl],
+            ["property", "og:image:secure_url", imageUrl],
+            ["property", "og:image:type", imageType],
+            ["property", "og:image:width", String(imageWidth)],
+            ["property", "og:image:height", String(imageHeight)],
+            ["property", "og:image:alt", imageAlt],
+            ["name", "twitter:image", imageUrl],
+            ["name", "twitter:image:alt", imageAlt],
+        ].forEach(([attribute, key, value]) => {
+            output = setMeta(output, attribute, key, value);
+        });
+    }
+
     return structuredData
         ? setStructuredData(output, structuredData)
         : output.replace(
@@ -134,7 +155,7 @@ function readProjectMetadata() {
     const projectsDirectory = resolve(projectRoot, "src/data/projects");
     const stringLiteral = '"(?:\\\\.|[^"\\\\])*"';
     const objectPattern = new RegExp(
-        `\\{[\\s\\S]*?\\bid:\\s*(${stringLiteral})[\\s\\S]*?\\btitle:\\s*(${stringLiteral})[\\s\\S]*?\\bdescription:\\s*(${stringLiteral})[\\s\\S]*?\\}`,
+        `\\{[\\s\\S]*?\\bid:\\s*(${stringLiteral})[\\s\\S]*?\\bwidth:\\s*(\\d+)[\\s\\S]*?\\bheight:\\s*(\\d+)[\\s\\S]*?\\btitle:\\s*(${stringLiteral})[\\s\\S]*?\\bdescription:\\s*(${stringLiteral})[\\s\\S]*?\\}`,
         "g",
     );
 
@@ -148,8 +169,10 @@ function readProjectMetadata() {
 
             return [...source.matchAll(objectPattern)].map((match) => ({
                 id: JSON.parse(match[1]),
-                title: JSON.parse(match[2]),
-                description: JSON.parse(match[3]),
+                width: Number(match[2]),
+                height: Number(match[3]),
+                title: JSON.parse(match[4]),
+                description: JSON.parse(match[5]),
             }));
         });
 }
@@ -307,17 +330,34 @@ const projects = readProjectMetadata();
 projects.forEach((project) => {
     const routePath = `project/${encodeURIComponent(project.id)}`;
     const projectUrl = new URL(routePath, siteUrl).href;
+    const projectImagePath = `og/projects/${encodeURIComponent(project.id)}.jpg`;
+    const projectImageSource = resolve(projectRoot, "public", projectImagePath);
+
+    if (!existsSync(projectImageSource)) {
+        throw new Error(
+            `Missing Open Graph image for project "${project.id}": public/${projectImagePath}`,
+        );
+    }
+
+    const projectImageUrl = new URL(projectImagePath, siteUrl).href;
+    const projectImageAlt = `Preview of ${project.title}, a project by Mirko Freschi`;
     const projectHtml = setPageMetadata(homeHtml, {
         title: `${project.title} | Project by Mirko Freschi`,
         description: project.description,
         canonicalUrl: projectUrl,
         type: "article",
+        imageUrl: projectImageUrl,
+        imageType: "image/jpeg",
+        imageWidth: project.width,
+        imageHeight: project.height,
+        imageAlt: projectImageAlt,
         structuredData: {
             "@context": "https://schema.org",
             "@type": "CreativeWork",
             url: projectUrl,
             name: project.title,
             description: project.description,
+            image: projectImageUrl,
             inLanguage: "en",
             creator: {
                 "@type": "Person",

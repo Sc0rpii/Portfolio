@@ -45,8 +45,9 @@ function ProjectDetailView(){
         .split(/\n\s*\n/)
         .filter(Boolean);
     const projectPath = `/project/${encodeURIComponent(project.id)}`;
+    const projectSocialImage = `/og/projects/${encodeURIComponent(project.id)}.jpg`;
     const projectUrl = getAbsoluteSiteUrl(projectPath);
-    const projectImageUrl = getAbsoluteSiteUrl(project.img);
+    const projectImageUrl = getAbsoluteSiteUrl(projectSocialImage);
     const projectStructuredData = {
         "@context": "https://schema.org",
         "@type": "CreativeWork",
@@ -71,11 +72,11 @@ function ProjectDetailView(){
                 description={project.description}
                 path={projectPath}
                 type="article"
-                image={project.img}
+                image={projectSocialImage}
                 imageAlt={`Preview of ${project.title}, a project by Mirko Freschi`}
-                imageType="image/webp"
-                imageWidth=""
-                imageHeight=""
+                imageType="image/jpeg"
+                imageWidth={String(project.width)}
+                imageHeight={String(project.height)}
                 structuredData={projectStructuredData}
             />
             <main className="relative px-4 pt-8 pb-16 overflow-hidden sm:px-8 sm:pt-10 sm:pb-20 lg:pt-16 lg:pb-24">

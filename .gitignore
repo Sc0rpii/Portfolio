@@ -1,5 +1,24 @@
+# Dependencies
+node_modules/
+
+# Production builds and generated caches
+dist/
+dist-ssr/
+.vite/
+coverage/
+
+# Local environment overrides
+.env
+.env.local
+.env.*.local
+*.local
+
+# Hosting providers
+.vercel/
+.netlify/
+
 # Logs
-logs
+logs/
 *.log
 npm-debug.log*
 yarn-debug.log*
@@ -7,19 +26,18 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
-
-# Editor directories and files
+# Editors and IDEs
 .vscode/*
 !.vscode/extensions.json
-.idea
-.DS_Store
-._*
+.idea/
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+
+# Operating-system metadata
+.DS_Store
+._*
+Thumbs.db
+Desktop.ini
