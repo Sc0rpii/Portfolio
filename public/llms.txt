@@ -1,0 +1,26 @@
+# Mirko Freschi — Web & iOS Developer
+
+> Official portfolio of Mirko Freschi, a freelance developer who designs and builds web interfaces, native iOS applications and maintainable digital products.
+
+The website is written in English. Its primary content covers Mirko's professional profile, development and design services, selected client work, personal projects, experience, certifications and testimonials.
+
+## Main pages
+
+- [Portfolio and professional profile](https://mirkofreschi.com/): Overview of Mirko Freschi, technical expertise, selected work, experience, certifications, testimonials and contact channels.
+- [Development and design services](https://mirkofreschi.com/services): Web development, native iOS development and UI/UX design services, including project responsibilities and collaboration models.
+
+## Projects
+
+- [Antica Braceria](https://mirkofreschi.com/project/antica-braceria): A landing page concept for a pizzeria as an example of what I can develop for local businesses and small businesses.
+- [Pet Sitting Ale](https://mirkofreschi.com/project/pet-sitting-ale): A modern landing page for a pet-sitting business focused on one goal: turning visitors into customers.
+
+## Professional profiles
+
+- [GitHub](https://github.com/Sc0rpii): Public source-code repositories and development projects.
+- [LinkedIn](https://www.linkedin.com/in/mirko-freschi-1b292b286/): Professional profile and career information.
+
+## Optional
+
+- [Instagram](https://www.instagram.com/mirkofreschi.dev/): Social updates from Mirko Freschi.
+- [TikTok](https://www.tiktok.com/@mirkofreschi.dev): Short-form development and portfolio content.
+- [Facebook](https://www.facebook.com/mirkofreschi.dev): Social profile and updates.
