@@ -12,6 +12,7 @@ function PageNotFound(){
                 title="Page not found | Mirko Freschi"
                 description="The requested page could not be found. Return to Mirko Freschi's Web and iOS development portfolio."
                 robots="noindex, follow"
+                canonical={false}
                 structuredData={null}
             />
             <header>

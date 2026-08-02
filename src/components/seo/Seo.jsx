@@ -54,12 +54,15 @@ function Seo({
     imageWidth = "1200",
     imageHeight = "630",
     robots = DEFAULT_ROBOTS,
+    canonical = true,
     structuredData,
 }) {
     const { pathname } = useLocation();
 
     useEffect(() => {
-        const canonicalUrl = getAbsoluteSiteUrl(path ?? pathname);
+        const canonicalUrl = canonical
+            ? getAbsoluteSiteUrl(path ?? pathname)
+            : "";
         const imageUrl = image
             ? image.startsWith("http")
                 ? image
@@ -181,6 +184,7 @@ function Seo({
         }
     }, [
         description,
+        canonical,
         image,
         imageAlt,
         imageHeight,
