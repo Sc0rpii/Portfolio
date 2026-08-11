@@ -2,6 +2,8 @@ import { useLayoutEffect } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { allProjects, professionalProjects } from "../data/projects";
 
+import visitIcon from "../assets/icon/lets-icons_out.svg"
+
 import Footer from "../components/section/Footer";
 import Seo from "../components/seo/Seo";
 import useScrollReveal from "../hooks/useScrollReveal";
@@ -47,22 +49,58 @@ function ProjectDetailView(){
     const projectPath = `/project/${encodeURIComponent(project.id)}`;
     const projectSocialImage = `/og/projects/${encodeURIComponent(project.id)}.jpg`;
     const projectUrl = getAbsoluteSiteUrl(projectPath);
+    const homeUrl = getAbsoluteSiteUrl("/");
     const projectImageUrl = getAbsoluteSiteUrl(projectSocialImage);
     const projectStructuredData = {
         "@context": "https://schema.org",
-        "@type": "CreativeWork",
-        "@id": `${projectUrl}#project`,
-        url: projectUrl,
-        name: project.title,
-        description: overview,
-        image: projectImageUrl,
-        inLanguage: siteConfig.language,
-        creator: {
-            "@type": "Person",
-            "@id": `${getAbsoluteSiteUrl("/")}#person`,
-            name: siteConfig.name,
-        },
-        ...(project.url ? { sameAs: project.url } : {}),
+        "@graph": [
+            {
+                "@type": "WebPage",
+                "@id": `${projectUrl}#webpage`,
+                url: projectUrl,
+                name: `${project.title} | Project by ${siteConfig.name}`,
+                description: overview,
+                inLanguage: siteConfig.language,
+                isPartOf: {
+                    "@id": `${homeUrl}#website`,
+                },
+            },
+            {
+                "@type": "CreativeWork",
+                "@id": `${projectUrl}#project`,
+                url: projectUrl,
+                name: project.title,
+                description: overview,
+                image: projectImageUrl,
+                inLanguage: siteConfig.language,
+                mainEntityOfPage: {
+                    "@id": `${projectUrl}#webpage`,
+                },
+                creator: {
+                    "@type": "Person",
+                    "@id": `${homeUrl}#person`,
+                    name: siteConfig.name,
+                },
+                ...(project.url ? { sameAs: project.url } : {}),
+            },
+            {
+                "@type": "BreadcrumbList",
+                itemListElement: [
+                    {
+                        "@type": "ListItem",
+                        position: 1,
+                        name: "Home",
+                        item: homeUrl,
+                    },
+                    {
+                        "@type": "ListItem",
+                        position: 2,
+                        name: project.title,
+                        item: projectUrl,
+                    },
+                ],
+            },
+        ],
     };
 
     return(
@@ -150,7 +188,7 @@ function ProjectDetailView(){
                             width={project.width}
                             height={project.height}
                             fetchPriority="high"
-                            className="aspect-[4/3] w-full object-cover object-top transition-transform duration-700 ease-out rounded-card group-hover:scale-[1.01] sm:aspect-video"
+                            className="aspect-4/3 w-full object-cover object-top transition-transform duration-700 ease-out rounded-card group-hover:scale-[1.01] sm:aspect-video"
                         />
                         <figcaption className="sr-only">
                             Project preview for {project.title}
@@ -197,7 +235,9 @@ function ProjectDetailView(){
                                     className="mt-7 inline-flex w-full items-center justify-center rounded-button bg-primary px-6 py-4 text-sm font-bold font-display text-heading transition-transform hover:-translate-y-0.5"
                                 >
                                     Visit live website
-                                    <span className="ml-2" aria-hidden="true">↗</span>
+                                    <span className="ml-2" aria-hidden="true">
+                                        <img className="h-5 w-5 brightness-0 invert" src={visitIcon} alt="" />
+                                    </span>
                                 </a>
                             ) : (
                                 <p

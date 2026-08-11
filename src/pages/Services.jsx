@@ -60,6 +60,23 @@ function Services(){
                     },
                 })),
             },
+            {
+                "@type": "BreadcrumbList",
+                itemListElement: [
+                    {
+                        "@type": "ListItem",
+                        position: 1,
+                        name: "Home",
+                        item: homeUrl,
+                    },
+                    {
+                        "@type": "ListItem",
+                        position: 2,
+                        name: "Services",
+                        item: servicesUrl,
+                    },
+                ],
+            },
         ],
     };
 

@@ -321,6 +321,23 @@ const servicesHtml = setPageMetadata(homeHtml, {
                     },
                 })),
             },
+            {
+                "@type": "BreadcrumbList",
+                itemListElement: [
+                    {
+                        "@type": "ListItem",
+                        position: 1,
+                        name: "Home",
+                        item: siteUrl,
+                    },
+                    {
+                        "@type": "ListItem",
+                        position: 2,
+                        name: "Services",
+                        item: servicesUrl,
+                    },
+                ],
+            },
         ],
     },
 });
@@ -353,17 +370,49 @@ projects.forEach((project) => {
         imageAlt: projectImageAlt,
         structuredData: {
             "@context": "https://schema.org",
-            "@type": "CreativeWork",
-            url: projectUrl,
-            name: project.title,
-            description: project.description,
-            image: projectImageUrl,
-            inLanguage: "en",
-            creator: {
-                "@type": "Person",
-                "@id": personId,
-                name: "Mirko Freschi",
-            },
+            "@graph": [
+                {
+                    "@type": "WebPage",
+                    "@id": `${projectUrl}#webpage`,
+                    url: projectUrl,
+                    name: `${project.title} | Project by Mirko Freschi`,
+                    description: project.description,
+                    inLanguage: "en",
+                    isPartOf: { "@id": websiteId },
+                },
+                {
+                    "@type": "CreativeWork",
+                    "@id": `${projectUrl}#project`,
+                    url: projectUrl,
+                    name: project.title,
+                    description: project.description,
+                    image: projectImageUrl,
+                    inLanguage: "en",
+                    mainEntityOfPage: { "@id": `${projectUrl}#webpage` },
+                    creator: {
+                        "@type": "Person",
+                        "@id": personId,
+                        name: "Mirko Freschi",
+                    },
+                },
+                {
+                    "@type": "BreadcrumbList",
+                    itemListElement: [
+                        {
+                            "@type": "ListItem",
+                            position: 1,
+                            name: "Home",
+                            item: siteUrl,
+                        },
+                        {
+                            "@type": "ListItem",
+                            position: 2,
+                            name: project.title,
+                            item: projectUrl,
+                        },
+                    ],
+                },
+            ],
         },
     });
     writeRouteHtml(routePath, projectHtml);

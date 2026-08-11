@@ -35,20 +35,6 @@ function Contact(){
                 href="https://www.facebook.com/mirkofreschi.dev">
                     <img src={facebook} alt="Facebook" />
                 </a>
-                <a
-                target="_blank"
-                rel="noreferrer"
-                className="p-2.5 rounded-full bg-primary transition-transform duration-200 hover:-translate-y-1 hover:scale-105"
-                href="https://github.com/Sc0rpii">
-                    <img src={github} alt="Github" />
-                </a>
-                <a
-                target="_blank"
-                rel="noreferrer"
-                className="p-2.5 rounded-full bg-primary transition-transform duration-200 hover:-translate-y-1 hover:scale-105"
-                href="https://www.linkedin.com/in/mirko-freschi-1b292b286/">
-                    <img src={linkedin} alt="LinkedIn" />
-                </a>
             </div>
         </div>
     );
