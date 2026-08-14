@@ -1,7 +1,5 @@
 import facebook from "../../assets/social/facebook.svg"
-import github from "../../assets/social/github.svg"
 import instagram from "../../assets/social/instagram.svg"
-import linkedin from "../../assets/social/linkedin.svg"
 import tiktok from "../../assets/social/tiktok.svg"
 
 function Contact(){

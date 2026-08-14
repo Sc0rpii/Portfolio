@@ -13,6 +13,7 @@ The project was designed and developed from scratch with a strong focus on clean
 - Dedicated routes for services, projects, and the custom 404 page.
 - Route-specific titles, descriptions, canonical URLs, Open Graph data, Twitter Cards, and JSON-LD.
 - Automatically generated `sitemap.xml`, `robots.txt`, and `llms.txt` files.
+- Build-time prerendering with react-snap for the home page, services, projects, and 404 page.
 - Project-specific social preview images.
 - Self-hosted Inter and Sora variable fonts.
 - Optimized WebP assets, lazy loading, and reduced-motion support.
@@ -63,6 +64,9 @@ Create `.env.production` from `.env.example` and configure the final public URL:
 ```env
 VITE_SITE_URL=https://mirkofreschi.com/
 ```
+
+`react-snap` uses Puppeteer's bundled Chromium in CI. If a build environment does
+not provide it, set `PUPPETEER_EXECUTABLE_PATH` to a local Chrome/Chromium binary.
 
 Then verify and build the project:
 

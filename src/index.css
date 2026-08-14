@@ -107,6 +107,15 @@ button {
   backface-visibility: hidden;
 }
 
+/* react-snap marks generated documents so crawlers and first-time visitors see
+   all prerendered content before the client attaches scroll animations. */
+html[data-prerendered] [data-reveal],
+html[data-prerendered] [data-timeline-item] {
+  opacity: 1;
+  transform: none;
+  will-change: auto;
+}
+
 [data-reveal] {
   transform: translateY(24px);
   transition:

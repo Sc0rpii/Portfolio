@@ -5,6 +5,17 @@ function useScrollReveal() {
         const elements = document.querySelectorAll(
             "[data-reveal], [data-timeline-item]"
         );
+
+        if (navigator.userAgent === "ReactSnap") {
+            window.snapSaveState = () => {
+                document.documentElement.dataset.prerendered = "true";
+            };
+
+            return undefined;
+        }
+
+        delete document.documentElement.dataset.prerendered;
+
         const prefersReducedMotion = window.matchMedia(
             "(prefers-reduced-motion: reduce)"
         ).matches;

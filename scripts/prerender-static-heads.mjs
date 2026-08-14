@@ -17,6 +17,7 @@ const env = {
     ...loadEnv(mode, projectRoot, ""),
     ...process.env,
 };
+const preserveRenderedHtml = env.PRERENDERED_HTML === "true";
 
 function getSiteUrl(value) {
     if (!value) {
@@ -177,10 +178,27 @@ function readProjectMetadata() {
         });
 }
 
-function writeRouteHtml(routePath, html) {
-    const outputPath = resolve(projectRoot, "dist", routePath, "index.html");
+function writeHtml(outputPath, html) {
+    let output = html;
+
+    if (preserveRenderedHtml && existsSync(outputPath)) {
+        const renderedHtml = readFileSync(outputPath, "utf8");
+        const renderedBody = renderedHtml.match(/<body\b[^>]*>[\s\S]*<\/body>/i);
+
+        if (renderedBody) {
+            output = output.replace(
+                /<body\b[^>]*>[\s\S]*<\/body>/i,
+                renderedBody[0],
+            );
+        }
+    }
+
     mkdirSync(dirname(outputPath), { recursive: true });
-    writeFileSync(outputPath, html, "utf8");
+    writeFileSync(outputPath, output, "utf8");
+}
+
+function writeRouteHtml(routePath, html) {
+    writeHtml(resolve(projectRoot, "dist", routePath, "index.html"), html);
 }
 
 function removeAppleDoubleFiles(directory) {
@@ -276,7 +294,7 @@ const homeHtml = setPageMetadata(baseHtml, {
     canonicalUrl: siteUrl,
     structuredData: homeStructuredData,
 });
-writeFileSync(indexPath, homeHtml, "utf8");
+writeRouteHtml("", homeHtml);
 
 const servicesUrl = new URL("services", siteUrl).href;
 const servicesDescription =
@@ -418,16 +436,19 @@ projects.forEach((project) => {
     writeRouteHtml(routePath, projectHtml);
 });
 
-const notFoundHtml = setPageMetadata(homeHtml, {
-    title: "Page not found | Mirko Freschi",
-    description:
-        "The requested page could not be found. Return to Mirko Freschi's Web and iOS development portfolio.",
-    canonicalUrl: "",
-    robots: "noindex, follow",
-});
-writeFileSync(resolve(projectRoot, "dist/404.html"), notFoundHtml, "utf8");
+if (preserveRenderedHtml) {
+    const notFoundHtml = setPageMetadata(homeHtml, {
+        title: "Page not found | Mirko Freschi",
+        description:
+            "The requested page could not be found. Return to Mirko Freschi's Web and iOS development portfolio.",
+        canonicalUrl: "",
+        robots: "noindex, follow",
+    });
+    writeHtml(resolve(projectRoot, "dist/404.html"), notFoundHtml);
+}
+
 cleanBuildMetadata(resolve(projectRoot, "dist"));
 
 console.info(
-    `SEO: generated static metadata for Home, Services, ${projects.length} projects and 404.`,
+    `SEO: generated static metadata for Home, Services and ${projects.length} projects.`,
 );
