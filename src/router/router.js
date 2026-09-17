@@ -5,6 +5,7 @@ import App from "../App";
 import Services from "../pages/Services";
 import PageNotFound from "../pages/PageNotFound";
 import ProjectDetailView from "../pages/ProjectDetailView";
+import Privacy from "../pages/Privacy";
 
 export const router = createBrowserRouter(
   [
@@ -19,6 +20,10 @@ export const router = createBrowserRouter(
     {
       path: "/project/:id",
       element: createElement(ProjectDetailView),
+    },
+    {
+      path: "/privacy-policy",
+      element: createElement(Privacy),
     },
     {
       path: "*",

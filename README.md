@@ -44,19 +44,6 @@ Building this portfolio helped me improve and consolidate several areas of devel
 - automating production tasks with custom Node.js scripts;
 - organizing project data separately from presentation components to simplify future updates.
 
-## Run locally
-
-Node.js `20.19+` or `22.12+` is recommended.
-
-```bash
-git clone https://github.com/Sc0rpii/Portfolio.git
-cd Portfolio
-npm install
-npm run dev
-```
-
-Vite will print the local development URL in the terminal.
-
 ## Production build
 
 Create `.env.production` from `.env.example` and configure the final public URL:

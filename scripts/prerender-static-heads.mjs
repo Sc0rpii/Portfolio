@@ -152,11 +152,28 @@ function setPageMetadata(html, {
         );
 }
 
+const englishTranslations = JSON.parse(
+    readFileSync(resolve(projectRoot, "src/languages/eng.json"), "utf8"),
+);
+
+function getEnglishTranslation(key) {
+    const value = key.split(".").reduce(
+        (translation, segment) => translation?.[segment],
+        englishTranslations,
+    );
+
+    if (typeof value !== "string") {
+        throw new Error(`Missing English translation for project key "${key}".`);
+    }
+
+    return value;
+}
+
 function readProjectMetadata() {
     const projectsDirectory = resolve(projectRoot, "src/data/projects");
     const stringLiteral = '"(?:\\\\.|[^"\\\\])*"';
     const objectPattern = new RegExp(
-        `\\{[\\s\\S]*?\\bid:\\s*(${stringLiteral})[\\s\\S]*?\\bwidth:\\s*(\\d+)[\\s\\S]*?\\bheight:\\s*(\\d+)[\\s\\S]*?\\btitle:\\s*(${stringLiteral})[\\s\\S]*?\\bdescription:\\s*(${stringLiteral})[\\s\\S]*?\\}`,
+        `\\{[\\s\\S]*?\\bid:\\s*(${stringLiteral})[\\s\\S]*?\\bwidth:\\s*(\\d+)[\\s\\S]*?\\bheight:\\s*(\\d+)[\\s\\S]*?\\btitle:\\s*(${stringLiteral})[\\s\\S]*?\\bdescriptionKey:\\s*(${stringLiteral})[\\s\\S]*?\\}`,
         "g",
     );
 
@@ -173,7 +190,7 @@ function readProjectMetadata() {
                 width: Number(match[2]),
                 height: Number(match[3]),
                 title: JSON.parse(match[4]),
-                description: JSON.parse(match[5]),
+                description: getEnglishTranslation(JSON.parse(match[5])),
             }));
         });
 }

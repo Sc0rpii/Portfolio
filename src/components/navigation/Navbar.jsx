@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './Navbar.css';
+import { useTranslation } from 'react-i18next';
 
 function Navbar(){
+const { t } = useTranslation();
+
     const { pathname, hash, search } = useLocation();
     const navigate = useNavigate();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -11,10 +14,10 @@ function Navbar(){
     );
     const linkClass = 'inline-block transition-colors duration-200 hover:text-primary';
     const navigationItems = [
-        { label: 'About', to: '/#hero', sectionHash: '#hero' },
-        { label: 'Portfolio', to: '/#portfolio', sectionHash: '#portfolio' },
-        { label: 'Services', to: '/services', pathname: '/services' },
-        { label: 'Reviews', to: '/#reviews', sectionHash: '#reviews' },
+        { label: t("navbar.about"), to: '/#hero', sectionHash: '#hero' },
+        { label: t("navbar.portfolio"), to: '/#portfolio', sectionHash: '#portfolio' },
+        { label: t("navbar.services"), to: '/services', pathname: '/services' },
+        { label: t("navbar.reviews"), to: '/#reviews', sectionHash: '#reviews' },
     ];
 
     const isHomeSectionActive = (sectionHash) => {
@@ -174,7 +177,7 @@ function Navbar(){
                     to="/#contact"
                     className="inline-block px-6 py-3.5 font-bold transition-transform duration-200 bg-primary rounded-button hover:-translate-y-0.5 xl:px-7.5 xl:py-4"
                 >
-                    Let's Connect
+                    {t("navbar.contact")}
                 </Link>
             </div>
 
@@ -213,7 +216,7 @@ function Navbar(){
                             onClick={() => setIsMenuOpen(false)}
                             className="inline-flex w-full items-center justify-center rounded-button bg-primary px-6 py-3.5 font-bold text-heading"
                         >
-                            Let's Connect
+                            {t("navbar.contact")}
                         </Link>
                     </li>
                 </ul>

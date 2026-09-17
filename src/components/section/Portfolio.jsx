@@ -1,7 +1,10 @@
+import { useTranslation } from "react-i18next";
 import CardPortfolio from "../card/CardPortfolio";
 import { professionalProjects } from "../../data/projects";
 
 function Portfolio(){
+    const {t} = useTranslation();
+
     return(
         <>
             <div className="flex flex-col items-center justify-center gap-2.5 px-5 text-center sm:px-8">
@@ -9,10 +12,10 @@ function Portfolio(){
                     Portfolio
                 </p>
                 <h2 className="text-3xl font-bold text-heading font-display sm:text-4xl">
-                    Selected Production-Ready Work
+                    {t("portfolio.title")}
                 </h2>
                 <p className="max-w-3xl text-sm leading-6 text-body font-body sm:text-base">
-                    A curated selection of projects focused on usability, performance, and professional presentation.
+                    {t("portfolio.subtitle")}
                 </p>
             </div>
             <div className="flex items-stretch w-full max-w-6xl gap-5 px-5 py-5 mx-auto mt-8 overflow-x-auto overscroll-x-contain touch-pan-x sm:px-8 sm:mt-10 snap-x snap-mandatory scrollbar-none [&::-webkit-scrollbar]:hidden">

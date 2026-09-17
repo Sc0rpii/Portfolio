@@ -2,57 +2,57 @@ export const experienceData = [
     {
         id: "learning-react",
         year: 2026,
-        title: "Learning React",
+        title: "experience.react.title",
         description:
-            "Building modern front-end applications with React.js while strengthening my JavaScript, HTML, CSS, and Tailwind CSS skills. Next step: React + TypeScript and back-end fundamentals.",
+            "experience.react.description",
     },
     {
         id: "AFP(A)",
         year: "2026",
-        title: "Apple Foundation Program (Advanced)",
+        title: "experience.afpA.title",
         description:
-            "Participated in the Apple Foundation Program, completing the foundational course focused on watchOS, tvOS development, design thinking, and collaborative product creation.",
+            "experience.afpA.description",
     },
     {
         id: "apple-foundation-basic",
         year: "2025",
-        title: "Apple Foundation Program (Basic)",
+        title: "experience.afpB.title",
         description:
-            "Participated in the Apple Foundation Program, completing the foundational course focused on iOS development, design thinking, and collaborative product creation.",
+            "experience.afpB.description",
     },
     {
         id: "technical-refresh",
         year: "2024",
-        title: "Skill Refinement & Technical Refresh",
+        title: "experience.skillR.title",
         description:
-            "Focused on refining existing skills, improving code quality, and deepening understanding of previously covered topics across web and iOS development.",
+            "experience.skillR.description",
     },
     {
         id: "advanced-web-development",
         year: "2023",
-        title: "Advanced Web Development",
+        title: "experience.webAdva.title",
         description:
-            "Expanded web development expertise with modern frameworks and tools, including Tailwind CSS and Bootstrap.",
+            "experience.webAdva.description",
     },
     {
         id: "database-foundations",
         year: "2022",
-        title: "Backend & Database Foundations",
+        title: "experience.db.title",
         description:
-            "Studied the design and creation of relational databases, with a focus on MySQL, data structure, and efficient data management.",
+            "experience.db.description",
     },
     {
         id: "native-ios-development",
         year: "2021",
-        title: "Native iOS Development",
+        title: "experience.ios.title",
         description:
-            "Started developing native iOS applications using SwiftUI, focusing on modern iOS architecture and user-centered mobile experiences.",
+            "experience.ios.description",
     },
     {
         id: "web-foundations",
         year: "2020",
-        title: "Web Development Foundations",
+        title: "experience.webFoundation.title",
         description:
-            "Began studying web development with HTML, CSS, and JavaScript, establishing a strong foundation in front-end fundamentals and web standards.",
+            "experience.webFoundation.description",
     },
 ];

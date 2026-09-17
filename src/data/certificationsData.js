@@ -5,14 +5,14 @@ export const certificationsData = [
     {
         id: "AFPBasic",
         badge: AFPBasic,
-        title: "Apple Foundation Program (Basic)",
+        title: "certification.afpA.title",
         year: 2025,
         link: "https://openbadges.bestr.it/public/assertions/vqqarOboQ8GFHef0kTVrfw"
     },
     {
         id: "AFPAdvanced",
         badge: AFPAdvanced,
-        title: "Apple Foundation Program (Advanced)",
+        title: "certification.afpB.title",
         year: 2026,
         link: "https://openbadges.bestr.it/public/assertions/7Tur0H-2SqijdJJ9hoUbjg"
     }

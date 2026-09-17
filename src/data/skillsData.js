@@ -5,9 +5,9 @@ export const skillsData = [
     {
         id: "web-development",
         icon: Pc,
-        title: "Web Development",
+        title: "skills.web.title",
         description:
-            "Building modern, responsive web applications with clean and maintainable code.",
+            "skills.web.description",
         skills: [
             {
                 label: "HTML, CSS, JavaScript",
@@ -18,11 +18,11 @@ export const skillsData = [
                 value: 70,
             },
             {
-                label: "Responsive layouts",
+                label: "skills.web.responsive",
                 value: 85,
             },
             {
-                label: "Performance-focused builds",
+                label: "skills.web.performance",
                 value: 75,
             },
         ],
@@ -30,24 +30,24 @@ export const skillsData = [
     {
         id: "ios-development",
         icon: Iphone,
-        title: "iOS Development",
+        title: "skills.ios.title",
         description:
-            "Building native iOS interfaces with a focus on usability and responsiveness.",
+            "skills.ios.description",
         skills: [
             {
                 label: "Swift/Swift UI",
                 value: 80,
             },
             {
-                label: "UIKit-based interfaces",
+                label: "skills.ios.uikit",
                 value: 75,
             },
             {
-                label: "App lifecycle & optimization",
+                label: "skills.ios.lifecycle",
                 value: 70,
             },
             {
-                label: "Clean architecture principles",
+                label: "skills.ios.architecture",
                 value: 80,
             },
         ],

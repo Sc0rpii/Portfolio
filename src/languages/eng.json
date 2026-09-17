@@ -1,0 +1,254 @@
+{
+    "navbar": {
+        "about": "About",
+        "portfolio": "Portfolio",
+        "services": "Services",
+        "reviews": "Reviews",
+        "contact": "Let's Connect"
+    },
+
+    "hero": {
+        "title": "Hi, I'm Mirko Freschi",
+        "subtitle": "Web & iOS Developer",
+        "description1": "I design and build clean, reliable digital products with a strong focus on usability, performance, and long-term maintainability.",
+        "description2": "I'm a freelance developer with experience building web interfaces and iOS applications.",
+        "description3": "I focus on clarity, structure, and scalable solutions — whether working with agencies or private clients. I value clean code, thoughtful design decisions, and clear communication throughout every project.",
+        "ButtonView": "View Portfolio",
+        "ButtonContact": "Contact Me"
+    },
+
+    "expertise": {
+        "title": "Tools, Technologies, and Capabilities",
+        "subtitle": "A practical skill set built through hands-on projects, continuous learning, and real-world problem solving."
+    },
+
+    "skills": {
+        "web":{
+            "title": "Web Development",
+            "description": "Building modern, responsive web applications with clean and maintainable code.",
+            "responsive": "Responsive layouts",
+            "performance": "Performance-focused builds"
+        },
+        "ios": {
+            "title": "iOS Development",
+            "description": "Building native iOS interfaces with a focus on usability and responsiveness.",
+            "uikit": "UIKit-based interfaces",
+            "lifecycle": "App lifecycle & optimization",
+            "architecture": "Clean architecture principles"
+        }
+    },
+
+    "portfolio": {
+        "title": "Selected Production-Ready Work",
+        "subtitle": "A curated selection of projects focused on usability, performance, and professional presentation."
+    },
+
+    "projects": {
+        "petSittingAle": {
+            "description": "A modern landing page for a pet-sitting business focused on one goal: turning visitors into customers.",
+            "overview": "PetsittingAle is a website developed for a pet sitter with the aim of offering a modern, professional online presence geared towards converting visitors into new customers. The project was designed with a focus on user experience, loading speed, and usability on any device.\n\nThe landing page clearly presents the services offered, a photo gallery, a section dedicated to customer reviews, FAQs, and a final call-to-action that allows you to quickly contact the pet sitter via a dedicated form.\n\nTechnically, the project was developed using HTML5, Tailwind CSS, JavaScript, and PHP, with a focus on good development practices. The contact system uses PHPMailer for secure email sending via SMTP, avoiding the use of PHP's mail() function and ensuring greater reliability in message delivery.\n\nTo make the site easily manageable over time, a MariaDB-based review system has also been designed, allowing customers to submit a review via a dedicated form. Each review is initially saved as pending approval and can be moderated through an authentication-protected administrative area, from which you can approve, reject, or block content before posting to the site.\n\nSeveral security-related best practices were adopted during development, including client-side and server-side data validation, use of prepared queries (PDOs) to prevent SQL Injection, secure password management via hashing, credential protection using environment variables, and a framework designed to be easily extendable with new features.\n\nThis project represents an important step in my journey towards full-stack development, allowing me to integrate a modern frontend with a real backend and a database."
+        },
+        "anticaBraceria": {
+            "description": "A landing page concept for a pizzeria, created as an example of a digital solution for local and small businesses.",
+            "overview": "Antica Braceria is a landing page concept for a pizzeria. The project explores a clear presentation of the offer, a conversion-oriented visual structure, and a responsive experience designed to work effectively on every device."
+        }
+    },
+
+    "projectDetail": {
+        "seoTitle": "{{project}} | Project by {{name}}",
+        "imageAlt": "Preview of {{project}}, a project by Mirko Freschi",
+        "imageCaption": "Project preview for {{project}}",
+        "home": "Home",
+        "backToPortfolio": "Back to portfolio",
+        "professionalType": "Professional project",
+        "personalType": "Personal exploration",
+        "professionalFocus": "Production-ready work",
+        "personalFocus": "Concept and experimentation",
+        "projectType": "Project type",
+        "focus": "Focus",
+        "overview": "Project overview",
+        "about": "About the project",
+        "liveWebsite": "Live website",
+        "liveTitle": "Explore the complete project.",
+        "liveDescription": "Open the hosted version to experience the interface, content and interactions in their final context.",
+        "visitWebsite": "Visit live website",
+        "liveLinkSoon": "Live link coming soon"
+    },
+
+    "exploration": {
+        "section": "Exploration",
+        "title": "Personal and Concept Projects",
+        "subtitle": "Independently created projects exploring layouts, interactions, and development approaches end-to-end."
+    },
+
+    "experience": {
+        "section": "Experience",
+        "title": "Professional Background and Journey",
+        "subtitle": "An overview of my experience, learning path, and ongoing work as a freelance developer.",
+        "react": {
+            "title": "Learning React",
+            "description": "Building modern front-end applications with React.js while strengthening my JavaScript, HTML, CSS, and Tailwind CSS skills. Next step: React + TypeScript and back-end fundamentals."
+        },
+        "afpA": {
+            "title": "Apple Foundation Program (Advanced)",
+            "description": "Participated in the Apple Foundation Program, completing the foundational course focused on watchOS, tvOS development, design thinking, and collaborative product creation."
+        },
+        "afpB": {
+            "title": "Apple Foundation Program (Basic)",
+            "description": "Participated in the Apple Foundation Program, completing the foundational course focused on iOS development, design thinking, and collaborative product creation."
+        },
+        "skilllR": {
+            "title": "Skill Refinement & Technical Refresh",
+            "description": "Focused on refining existing skills, improving code quality, and deepening understanding of previously covered topics across web and iOS development."
+        },
+        "webAdva": {
+            "title": "Advanced Web Development",
+            "description": "Expanded web development expertise with modern frameworks and tools, including Tailwind CSS and Bootstrap."
+        },
+        "db": {
+            "title": "Backend & Database Foundations",
+            "description": "Studied the design and creation of relational databases, with a focus on MySQL, data structure, and efficient data management."
+        },
+        "ios": {
+            "title": "Native iOS Development",
+            "description": "Started developing native iOS applications using SwiftUI, focusing on modern iOS architecture and user-centered mobile experiences."
+        },
+        "webFoundation": {
+            "title": "Web Development Foundations",
+            "description": "Began studying web development with HTML, CSS, and JavaScript, establishing a strong foundation in front-end fundamentals and web standards."
+        }
+    },
+
+    "certification":{
+        "section": "Certifications & Achievements",
+        "issued": "Issued",
+        "verify": "Verify Credential",
+        "afpA":{
+            "title": "Apple Foundation Program (Basic)"
+        },
+        "afpB":{
+            "title": "Apple Foundation Program (Advanced)"
+        }
+    },
+
+    "reviews":{
+        "section": "Testimonials",
+        "showMore": "View more",
+        "showLess": "View Less",
+        "project": "Project: {{project}}",
+        "petSittingAle":{
+            "description": "Mirko was professional, easy to communicate with, and genuinely cared about creating the right website for my business. He listened to every request, offered valuable advice, and delivered exactly what I needed. The whole experience was smooth from start to finish."
+        }
+    },
+
+    "contact":{
+        "title": "Let's Connect",
+        "subtitle": "Follow my journey or get in touch through my social channels."
+    },
+
+    "service": {
+        "section": "Services",
+        "title": "How I can Help You",
+        "description": "Web development, native iOS development and UI/UX design services by Mirko Freschi for clear, reliable and maintainable digital products.",
+        "services":{
+            "web":{
+                "title": "Web Development",
+                "description": "Clean, responsive websites designed for clarity and usability."
+            },
+            "ios":{
+                "title": "IOS Development",
+                "description": "Native iOS apps built with performance and user experience in mind."
+            },
+            "ui": {
+                "title": "UI & UX Design",
+                "description": "Interface and experience design focused on structure and flow."
+            }
+        },
+        "hosting": {
+            "title": "Hosting and Project Responsibilities",
+            "description": "Clear expectations around hosting, setup, and responsibilities — depending on project needs.",
+            "detail": "Technical Details",
+            "options": {
+                "optionA": {
+                    "title": "Client-managed hosting",
+                    "description": "I work directly with your existing hosting setup and provide everything needed for deployment."
+                },
+                "optionB": {
+                    "title": "Developer-managed hosting",
+                    "description": "Hosting and setup can be managed by me if required, depending on project scope."
+                }
+            }
+        }
+    },
+
+    "moreproject": {
+        "section": "Additional Work",
+        "title": "More Projects and Experiments",
+        "description": "Additional examples that showcase range, adaptability, and technical curiosity."
+    },
+
+    "engagment":{
+        "section": "Engagement",
+        "title": "Ways of Working Together",
+        "description": "Simple, transparent collaboration models tailored to different project scopes.",
+        "type": {
+            "project":{
+                "title": "Project Based",
+                "description": "Fixed scope, clear timeline."
+            },
+            "ongoing": {
+                "title": "Hourly / Ongoing",
+                "description": "Flexible collaboration for long-term needs."
+            }
+        }
+    },
+
+    "privacy": {
+        "title": "Privacy & Cookie Policy",
+        "lastUpdated": "Last updated",
+        "date": "September 1, 2026",
+        "intro1": "This website represents my personal professional portfolio. It does not constitute a business activity, does not sell services or products, and does not collect personal data for commercial purposes.",
+        "intro2": "On this page, I transparently explain how the very few data generated by your navigation are managed, in compliance with the EU Regulation 2016/679 (GDPR) and the main global privacy regulations.",
+        "owner": {
+        "title": "Data Controller",
+        "desc": "The Data Controller is the owner of the portfolio:",
+        "name": "Full Name:",
+        "location": "Location:",
+        "city": "Palermo",
+        "email": "Contact Email:"
+        },
+        "analytics": {
+        "title": "Types of Data Collected and Google Analytics",
+        "desc1": "To understand how many people visit my portfolio and which projects generate the most interest, I use the statistical service",
+        "desc2": "provided by Google Ireland Limited.",
+        "desc3": "To ensure maximum protection of your privacy, the tool has been configured with very strict restrictions:",
+        "ip": "IP Anonymization:",
+        "ipDesc": "Google Analytics 4 masks and anonymizes your IP address at the network level before saving any data. It is impossible for me or Google to trace your exact identity or location.",
+        "sharing": "No Data Sharing:",
+        "sharingDesc": "I have disabled any data sharing with other Google services, advertising features (Google Signals), or commercial profiling.",
+        "forms": "No Contact Forms:",
+        "formsDesc": "There are no data entry forms on the site. The only contact channels are direct links to my social profiles or my email.",
+        "conclusion": "The collected data are exclusively metrics (e.g., number of page views, time spent on the portfolio)."
+        },
+        "consent": {
+        "title": "Legal Basis for Processing and Consent",
+        "desc1": "Statistical tracking only occurs if you express your",
+        "desc2": "explicit consent",
+        "desc3": "by clicking \"Accept\" on the initial banner. If you decide to refuse or close the banner, Google Analytics will remain completely blocked. The legal basis is your free and revocable consent at any time."
+        },
+        "cookies": {
+        "title": "Details of Cookies Used",
+        "desc": "This site uses only the following categories of cookies:",
+        "technical": "Technical Cookies (necessary):",
+        "technicalDesc": "A first-party cookie generated by the site to remember your choice on the banner (whether you accepted or rejected statistical cookies). It does not require consent, does not track your identity, and expires after 6 months.",
+        "statistical": "Statistical Cookies (Third-Party):",
+        "statisticalDesc": "Released by Google Analytics only with prior consent",
+        "gaDesc": "Identifies visits anonymously (Duration: 14 months).",
+        "gaStarDesc": "Maintains anonymous session state (Duration: 14 months)."
+        },
+        "rights": {
+        "title": "User Rights",
+        "desc": "Even in the absence of direct identifying data, you have the right to check the status of your consent, revoke it, or request information at the email address indicated in Point 1."
+        }
+    }
+}

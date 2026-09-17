@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useLayoutEffect } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { allProjects, professionalProjects } from "../data/projects";
@@ -13,6 +14,7 @@ import {
 } from "../config/site";
 
 function ProjectDetailView(){
+    const { t, i18n } = useTranslation();
     const { id } = useParams();
     useScrollReveal();
 
@@ -37,12 +39,16 @@ function ProjectDetailView(){
         (item) => String(item.id) === id
     );
     const projectType = isProfessionalProject
-        ? "Professional project"
-        : "Personal exploration";
+        ? t("projectDetail.professionalType")
+        : t("projectDetail.personalType");
     const projectFocus = isProfessionalProject
-        ? "Production-ready work"
-        : "Concept and experimentation";
-    const overview = project.accurateDescription?.trim() || project.description;
+        ? t("projectDetail.professionalFocus")
+        : t("projectDetail.personalFocus");
+    const projectDescription = t(project.description);
+    const accurateDescription = project.accurateDescription
+        ? t(project.accurateDescription)
+        : "";
+    const overview = accurateDescription.trim() || projectDescription;
     const overviewParagraphs = overview
         .split(/\n\s*\n/)
         .filter(Boolean);
@@ -58,9 +64,12 @@ function ProjectDetailView(){
                 "@type": "WebPage",
                 "@id": `${projectUrl}#webpage`,
                 url: projectUrl,
-                name: `${project.title} | Project by ${siteConfig.name}`,
+                name: t("projectDetail.seoTitle", {
+                    project: project.title,
+                    name: siteConfig.name,
+                }),
                 description: overview,
-                inLanguage: siteConfig.language,
+                inLanguage: i18n.resolvedLanguage || i18n.language,
                 isPartOf: {
                     "@id": `${homeUrl}#website`,
                 },
@@ -72,7 +81,7 @@ function ProjectDetailView(){
                 name: project.title,
                 description: overview,
                 image: projectImageUrl,
-                inLanguage: siteConfig.language,
+                inLanguage: i18n.resolvedLanguage || i18n.language,
                 mainEntityOfPage: {
                     "@id": `${projectUrl}#webpage`,
                 },
@@ -89,7 +98,7 @@ function ProjectDetailView(){
                     {
                         "@type": "ListItem",
                         position: 1,
-                        name: "Home",
+                        name: t("projectDetail.home"),
                         item: homeUrl,
                     },
                     {
@@ -106,12 +115,15 @@ function ProjectDetailView(){
     return(
         <>
             <Seo
-                title={`${project.title} | Project by Mirko Freschi`}
-                description={project.description}
+                title={t("projectDetail.seoTitle", {
+                    project: project.title,
+                    name: siteConfig.name,
+                })}
+                description={projectDescription}
                 path={projectPath}
                 type="article"
                 image={projectSocialImage}
-                imageAlt={`Preview of ${project.title}, a project by Mirko Freschi`}
+                imageAlt={t("projectDetail.imageAlt", { project: project.title })}
                 imageType="image/jpeg"
                 imageWidth={String(project.width)}
                 imageHeight={String(project.height)}
@@ -143,7 +155,7 @@ function ProjectDetailView(){
                         className="inline-flex items-center gap-2 text-sm font-bold transition-colors font-body text-body hover:text-primary"
                     >
                         <span aria-hidden="true">←</span>
-                        Back to portfolio
+                        {t("projectDetail.backToPortfolio")}
                     </Link>
 
                     <section data-reveal className="grid gap-8 py-10 sm:py-12 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end lg:gap-10">
@@ -155,7 +167,7 @@ function ProjectDetailView(){
                                 {project.title}
                             </h1>
                             <p className="max-w-3xl mt-5 text-sm leading-7 font-body text-body sm:mt-6 sm:text-lg">
-                                {project.description}
+                                {t("professionalProject.description")}
                             </p>
                         </div>
 
@@ -163,7 +175,7 @@ function ProjectDetailView(){
                             <dl className="space-y-5 font-body">
                                 <div>
                                     <dt className="text-xs font-bold uppercase tracking-[0.18em] text-primary">
-                                        Project type
+                                        {t("projectDetail.projectType")}
                                     </dt>
                                     <dd className="mt-2 text-base font-bold text-heading">
                                         {projectType}
@@ -171,7 +183,7 @@ function ProjectDetailView(){
                                 </div>
                                 <div className="pt-5 border-t border-border">
                                     <dt className="text-xs font-bold uppercase tracking-[0.18em] text-primary">
-                                        Focus
+                                        {t("projectDetail.focus")}
                                     </dt>
                                     <dd className="mt-2 text-base font-bold text-heading">
                                         {projectFocus}
@@ -181,32 +193,32 @@ function ProjectDetailView(){
                         </div>
                     </section>
 
-                    <figure data-reveal className="interactive-card group p-2 overflow-hidden border rounded-card border-border bg-surface sm:p-3">
+                    <figure data-reveal className="interactive-card object-contain group p-2 overflow-hidden border rounded-card border-border bg-surface sm:p-3">
                         <img
                             src={project.img}
-                            alt={`Preview of ${project.title}`}
+                            alt={t("projectDetail.imageAlt", { project: project.title })}
                             width={project.width}
                             height={project.height}
                             fetchPriority="high"
-                            className="aspect-4/3 w-full object-cover object-top transition-transform duration-700 ease-out rounded-card group-hover:scale-[1.01] sm:aspect-video"
+                            className="w-full h-auto max-h-[75vh] object-contain object-center transition-transform duration-700 ease-out rounded-card group-hover:scale-[1.01]"
                         />
                         <figcaption className="sr-only">
-                            Project preview for {project.title}
+                            {t("projectDetail.imageCaption", { project: project.title })}
                         </figcaption>
                     </figure>
 
                     <section data-reveal className="grid gap-10 pt-12 sm:pt-16 lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-16">
                         <article>
                             <p className="text-sm font-bold font-display text-primary">
-                                Project overview
+                                {t("projectDetail.overview")}
                             </p>
                             <h2 className="mt-3 text-2xl font-bold font-display text-heading sm:text-4xl">
-                                About the project
+                                {t("projectDetail.about")}
                             </h2>
                             <div className="mt-6 space-y-5 sm:mt-8 sm:space-y-6">
                                 {overviewParagraphs.map((paragraph, index) => (
                                     <p
-                                        key={`${project.id}-paragraph-${index}`}
+                                        key={`${t("professionalProject.accurateDescription")}-paragraph-${index}`}
                                         className="text-sm leading-7 font-body text-body sm:text-base sm:leading-8"
                                     >
                                         {paragraph}
@@ -217,14 +229,13 @@ function ProjectDetailView(){
 
                         <aside className="interactive-card h-fit border border-border bg-surface p-5 rounded-card sm:p-7 lg:sticky lg:top-8">
                             <p className="text-sm font-bold font-display text-primary">
-                                Live website
+                                {t("projectDetail.liveWebsite")}
                             </p>
                             <h2 className="mt-3 text-xl font-bold leading-snug font-display text-heading sm:text-2xl">
-                                Explore the complete project.
+                                {t("projectDetail.liveTitle")}
                             </h2>
                             <p className="mt-4 text-sm leading-6 font-body text-body">
-                                Open the hosted version to experience the interface,
-                                content and interactions in their final context.
+                                {t("projectDetail.liveDescription")}
                             </p>
 
                             {project.url ? (
@@ -234,7 +245,7 @@ function ProjectDetailView(){
                                     rel="noreferrer"
                                     className="mt-7 inline-flex w-full items-center justify-center rounded-button bg-primary px-6 py-4 text-sm font-bold font-display text-heading transition-transform hover:-translate-y-0.5"
                                 >
-                                    Visit live website
+                                    {t("projectDetail.visitWebsite")}
                                     <span className="ml-2" aria-hidden="true">
                                         <img className="h-5 w-5 brightness-0 invert" src={visitIcon} alt="" />
                                     </span>
@@ -243,7 +254,7 @@ function ProjectDetailView(){
                                 <p
                                     className="px-6 py-4 text-sm font-bold text-center border mt-7 rounded-button border-border font-display text-body"
                                 >
-                                    Live link coming soon
+                                    {t("projectDetail.liveLinkSoon")}
                                 </p>
                             )}
                         </aside>

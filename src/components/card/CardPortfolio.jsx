@@ -1,6 +1,9 @@
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
-function CardPortfolio({id, img, width, height, title, description}){ 
+function CardPortfolio({ id, img, width, height, title, descriptionKey }) {
+    const {t} = useTranslation();
+
     return(
         <Link
         to={`/project/${id}`}
@@ -22,7 +25,7 @@ function CardPortfolio({id, img, width, height, title, description}){
                     {title}
                 </h3>
                 <p className="text-sm leading-6 font-body">
-                    {description}
+                    {t(descriptionKey)}
                 </p>
             </div>
         </Link>
