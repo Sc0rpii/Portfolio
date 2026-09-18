@@ -203,6 +203,21 @@
         }
     },
 
+    "cookie": {
+        "title": "Utilizziamo i Cookie",
+        "body": "Questo sito utilizza esclusivamente cookie tecnici e cookie analitici anonimizzati per raccogliere statistiche aggregate sul traffico. Non viene effettuata alcuna profilazione a scopo pubblicitario.",
+        "privacy": "Leggi la ",
+        "button": "Accetta",
+        "reject": "Rifiuta",
+        "manage": "Gestisci preferenze cookie"
+    },
+
+    "seo": {
+        "homeTitle": "Mirko Freschi | Sviluppatore Web & iOS",
+        "homeDescription": "Portfolio di Mirko Freschi, sviluppatore freelance Web e iOS che crea prodotti digitali veloci, accessibili e manutenibili.",
+        "servicesTitle": "Servizi di Sviluppo Web, iOS & UI/UX | Mirko Freschi"
+    },
+
     "privacy": {
         "title": "Privacy & Cookie Policy",
         "lastUpdated": "Ultimo aggiornamento",
@@ -234,7 +249,7 @@
         "title": "Base Giuridica del Trattamento e Consenso",
         "desc1": "Il tracciamento statistico avviene unicamente se esprimi il tuo",
         "desc2": "consenso esplicito",
-        "desc3": "cliccando su \"Accetta\" nel banner iniziale. Se decidi di rifiutare o di chiudere il banner, Google Analytics rimarrà completamente bloccato. La base giuridica è il tuo consenso libero e revocabile in qualsiasi momento."
+        "desc3": "cliccando su \"Accetta\" nel banner iniziale. Se clicchi invece su \"Rifiuta\", Google Analytics rimarrà completamente bloccato. Puoi cambiare la tua scelta in qualsiasi momento dal link \"Gestisci preferenze cookie\" nel footer. La base giuridica è il tuo consenso libero e revocabile in qualsiasi momento."
         },
         "cookies": {
         "title": "Dettaglio dei Cookie Utilizzati",

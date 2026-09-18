@@ -203,6 +203,21 @@
         }
     },
 
+    "cookie": {
+        "title": "We use Cookie",
+        "body": "This website exclusively uses technical cookies and anonymized analytical cookies to collect aggregate traffic statistics. No tracking or profiling is performed for advertising purposes.",
+        "privacy": "Read the ",
+        "button": "Accept",
+        "reject": "Reject",
+        "manage": "Manage cookie preferences"
+    },
+
+    "seo": {
+        "homeTitle": "Mirko Freschi | Web & iOS Developer",
+        "homeDescription": "Portfolio of Mirko Freschi, a freelance Web and iOS Developer creating fast, accessible and maintainable digital products.",
+        "servicesTitle": "Web, iOS & UI/UX Development Services | Mirko Freschi"
+    },
+
     "privacy": {
         "title": "Privacy & Cookie Policy",
         "lastUpdated": "Last updated",
@@ -234,7 +249,7 @@
         "title": "Legal Basis for Processing and Consent",
         "desc1": "Statistical tracking only occurs if you express your",
         "desc2": "explicit consent",
-        "desc3": "by clicking \"Accept\" on the initial banner. If you decide to refuse or close the banner, Google Analytics will remain completely blocked. The legal basis is your free and revocable consent at any time."
+        "desc3": "by clicking \"Accept\" on the initial banner. If you click \"Reject\" instead, Google Analytics will remain completely blocked. You can change your choice at any time from the \"Manage cookie preferences\" link in the footer. The legal basis is your free and revocable consent at any time."
         },
         "cookies": {
         "title": "Details of Cookies Used",

@@ -154,11 +154,40 @@ const routePaths = [
     "services",
     ...projects.map((project) => `project/${encodeURIComponent(project.id)}`),
 ];
-const urls = routePaths.map((path) => new URL(path, siteUrl).href);
+const locales = ["en", "it"];
+
+function getLocalizedRoutePath(routePath, locale) {
+    if (locale !== "it") {
+        return routePath;
+    }
+
+    return routePath ? `it/${routePath}` : "it";
+}
+
+const sitemapEntries = routePaths.map((routePath) => ({
+    urls: Object.fromEntries(
+        locales.map((locale) => [
+            locale,
+            new URL(getLocalizedRoutePath(routePath, locale), siteUrl).href,
+        ]),
+    ),
+}));
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls
-    .map((url) => `  <url>\n    <loc>${escapeXml(url)}</loc>\n  </url>`)
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+${sitemapEntries
+    .flatMap(({ urls }) =>
+        locales.map((locale) => {
+            const alternateLinks = [
+                ...locales.map(
+                    (alternateLocale) =>
+                        `    <xhtml:link rel="alternate" hreflang="${alternateLocale}" href="${escapeXml(urls[alternateLocale])}" />`,
+                ),
+                `    <xhtml:link rel="alternate" hreflang="x-default" href="${escapeXml(urls.en)}" />`,
+            ].join("\n");
+
+            return `  <url>\n    <loc>${escapeXml(urls[locale])}</loc>\n${alternateLinks}\n  </url>`;
+        }),
+    )
     .join("\n")}
 </urlset>
 `;
@@ -170,5 +199,5 @@ writeFileSync(
 );
 writeFileSync(sitemapPath, sitemap, "utf8");
 console.info(
-    `SEO: generated sitemap.xml with ${urls.length} indexable URLs and llms.txt.`,
+    `SEO: generated sitemap.xml with ${sitemapEntries.length * locales.length} indexable URLs and llms.txt.`,
 );

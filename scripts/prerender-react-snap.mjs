@@ -27,7 +27,15 @@ const projectRoutes = existsSync(projectDirectory)
         .map((entry) => `/project/${entry.name}`)
     : [];
 
-const routes = ["/", "/services", "/404.html", ...projectRoutes];
+const routes = [
+    "/",
+    "/services",
+    "/404.html",
+    ...projectRoutes,
+    "/it",
+    "/it/services",
+    ...projectRoutes.map((route) => `/it${route}`),
+];
 
 await run({
     source: "dist",

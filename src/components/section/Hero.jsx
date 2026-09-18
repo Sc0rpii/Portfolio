@@ -1,12 +1,15 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import myPhoto from '../../assets/picture.webp';
 import CodeIcon from '../../assets/icon/Code.svg';
 import AppleIcon from '../../assets/icon/Apple.svg';
 import WindowsIcon from '../../assets/icon/Window.svg';
 import { useTranslation } from 'react-i18next';
+import { getLocaleFromPathname, localizePath } from '../../utils/locale';
 
 function Hero(){
     const { t } = useTranslation();
+    const { pathname } = useLocation();
+    const homePath = localizePath('/', getLocaleFromPathname(pathname));
 
     return(
         <div className='relative w-full px-5 py-12 sm:px-8 sm:py-16 lg:py-20'>
@@ -32,12 +35,12 @@ function Hero(){
                     </div>
                     <div className="flex flex-col gap-3 min-[420px]:flex-row">
                         <Link
-                        to="/#portfolio"
+                        to={`${homePath}#portfolio`}
                         className="px-6 py-4 text-sm text-center transition-transform duration-200 bg-primary rounded-button font-display text-heading hover:-translate-y-0.5 sm:px-7.5 sm:py-5">
                             {t("hero.ButtonView")}
                         </Link>
                         <Link
-                        to="/#contact"
+                        to={`${homePath}#contact`}
                         className="px-6 py-4 text-sm text-center transition-colors duration-200 border rounded-button border-border text-heading hover:border-primary hover:text-primary sm:px-7.5 sm:py-5">
                             {t("hero.ButtonContact")}
                         </Link>

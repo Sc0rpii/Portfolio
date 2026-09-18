@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { useLayoutEffect } from "react";
-import { Link, Navigate, useParams } from "react-router-dom";
+import { Link, Navigate, useLocation, useParams } from "react-router-dom";
 import { allProjects, professionalProjects } from "../data/projects";
 
 import visitIcon from "../assets/icon/lets-icons_out.svg"
@@ -12,10 +12,13 @@ import {
     getAbsoluteSiteUrl,
     siteConfig,
 } from "../config/site";
+import { getLocaleFromPathname, localizePath } from "../utils/locale";
 
 function ProjectDetailView(){
     const { t, i18n } = useTranslation();
     const { id } = useParams();
+    const { pathname } = useLocation();
+    const homePath = localizePath('/', getLocaleFromPathname(pathname));
     useScrollReveal();
 
     useLayoutEffect(() => {
@@ -32,7 +35,7 @@ function ProjectDetailView(){
     );
 
     if(!project){
-        return <Navigate to="/404" replace />;
+        return <Navigate to={localizePath('/404', getLocaleFromPathname(pathname))} replace />;
     }
 
     const isProfessionalProject = professionalProjects.some(
@@ -151,7 +154,7 @@ function ProjectDetailView(){
 
                 <div className="w-full max-w-6xl mx-auto">
                     <Link
-                        to="/#portfolio"
+                        to={`${homePath}#portfolio`}
                         className="inline-flex items-center gap-2 text-sm font-bold transition-colors font-body text-body hover:text-primary"
                     >
                         <span aria-hidden="true">←</span>

@@ -19,10 +19,11 @@ import { moreProjects } from "../data/projects";
 import { useTranslation } from "react-i18next";
 
 function Services(){
-    const {t} = useTranslation();
+    const {t, i18n} = useTranslation();
     useScrollReveal();
     const servicesUrl = getAbsoluteSiteUrl("/services");
     const homeUrl = getAbsoluteSiteUrl("/");
+    const locale = i18n.resolvedLanguage || i18n.language;
     const servicesDescription =
         t("service.description");
     const servicesStructuredData = {
@@ -34,7 +35,7 @@ function Services(){
                 url: servicesUrl,
                 name: "Web, iOS & UI/UX Development Services",
                 description: servicesDescription,
-                inLanguage: siteConfig.language,
+                inLanguage: locale,
                 isPartOf: {
                     "@id": `${homeUrl}#website`,
                 },
@@ -85,7 +86,7 @@ function Services(){
     return(
         <>
             <Seo
-                title="Web, iOS & UI/UX Development Services | Mirko Freschi"
+                title={t("seo.servicesTitle")}
                 description={servicesDescription}
                 path="/services"
                 structuredData={servicesStructuredData}

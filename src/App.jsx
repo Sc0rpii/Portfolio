@@ -22,11 +22,13 @@ import { reviewsData } from "./data/reviewsData";
 import { useTranslation } from "react-i18next";
 
 function App() {
-  const {t} = useTranslation();
+  const {t, i18n} = useTranslation();
   const { hash, state } = useLocation();
   const isScrollSync = state?.scrollSync === true;
   useScrollReveal();
   const homeUrl = getAbsoluteSiteUrl("/");
+  const locale = i18n.resolvedLanguage || i18n.language;
+  const homeDescription = t("seo.homeDescription");
   const homeStructuredData = {
     "@context": "https://schema.org",
     "@graph": [
@@ -36,7 +38,7 @@ function App() {
         name: siteConfig.name,
         url: homeUrl,
         jobTitle: siteConfig.role,
-        description: siteConfig.description,
+        description: homeDescription,
         sameAs: siteConfig.socialProfiles,
         knowsAbout: [
           "Web Development",
@@ -53,8 +55,8 @@ function App() {
         "@id": `${homeUrl}#website`,
         url: homeUrl,
         name: siteConfig.name,
-        description: siteConfig.description,
-        inLanguage: siteConfig.language,
+        description: homeDescription,
+        inLanguage: locale,
         author: {
           "@id": `${homeUrl}#person`,
         },
@@ -64,8 +66,8 @@ function App() {
         "@id": `${homeUrl}#profile`,
         url: homeUrl,
         name: `${siteConfig.name} — ${siteConfig.role}`,
-        description: siteConfig.description,
-        inLanguage: siteConfig.language,
+        description: homeDescription,
+        inLanguage: locale,
         mainEntity: {
           "@id": `${homeUrl}#person`,
         },
@@ -92,8 +94,8 @@ function App() {
   return (
     <>
     <Seo
-      title="Mirko Freschi | Web & iOS Developer"
-      description={siteConfig.description}
+      title={t("seo.homeTitle")}
+      description={homeDescription}
       path="/"
       structuredData={homeStructuredData}
     />

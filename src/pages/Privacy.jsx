@@ -1,6 +1,7 @@
 import "./style/Privacy.css";
 import Navbar from "../components/navigation/Navbar";
 import Footer from "../components/section/Footer";
+import Seo from "../components/seo/Seo";
 import { useTranslation } from "react-i18next";
 
 function Privacy(){
@@ -8,6 +9,13 @@ function Privacy(){
 
     return(
     <>
+    <Seo
+        title={`${t("privacy.title")} | Mirko Freschi`}
+        description={t("privacy.intro1")}
+        path="/privacy-policy"
+        robots="noindex, follow"
+        structuredData={null}
+    />
     <Navbar />
     <header className="ml-5 text-body">
         <h1>

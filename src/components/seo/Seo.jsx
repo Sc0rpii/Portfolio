@@ -4,6 +4,7 @@ import {
     getAbsoluteSiteUrl,
     siteConfig,
 } from "../../config/site";
+import { getLocaleFromPathname, localizePath, stripLocaleFromPathname } from "../../utils/locale";
 
 const DEFAULT_ROBOTS =
     "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
@@ -43,6 +44,19 @@ function upsertLink(rel, href) {
     element.setAttribute("href", href);
 }
 
+function upsertAlternateLanguage(hreflang, href) {
+    let element = document.head.querySelector(`link[rel="alternate"][hreflang="${hreflang}"]`);
+
+    if (!element) {
+        element = document.createElement("link");
+        element.setAttribute("rel", "alternate");
+        element.setAttribute("hreflang", hreflang);
+        document.head.appendChild(element);
+    }
+
+    element.setAttribute("href", href);
+}
+
 function Seo({
     title,
     description = siteConfig.description,
@@ -60,8 +74,10 @@ function Seo({
     const { pathname } = useLocation();
 
     useEffect(() => {
+        const locale = getLocaleFromPathname(pathname);
+        const routePath = localizePath(path ?? pathname, locale);
         const canonicalUrl = canonical
-            ? getAbsoluteSiteUrl(path ?? pathname)
+            ? getAbsoluteSiteUrl(routePath)
             : "";
         const imageUrl = image
             ? image.startsWith("http")
@@ -92,7 +108,7 @@ function Seo({
         upsertMeta(
             'meta[property="og:locale"]',
             ["property", "og:locale"],
-            siteConfig.locale,
+            locale === "it" ? "it_IT" : siteConfig.locale,
         );
         upsertMeta('meta[property="og:url"]', ["property", "og:url"], canonicalUrl);
         upsertMeta('meta[property="og:image"]', ["property", "og:image"], imageUrl);
@@ -149,6 +165,11 @@ function Seo({
         );
 
         upsertLink("canonical", canonicalUrl);
+        const untranslatedPath = stripLocaleFromPathname(routePath);
+        upsertAlternateLanguage("en", getAbsoluteSiteUrl(untranslatedPath));
+        upsertAlternateLanguage("it", getAbsoluteSiteUrl(localizePath(untranslatedPath, "it")));
+        upsertAlternateLanguage("x-default", getAbsoluteSiteUrl(untranslatedPath));
+        document.documentElement.lang = locale;
 
         const verificationTags = [
             [

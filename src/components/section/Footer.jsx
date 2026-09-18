@@ -5,9 +5,17 @@ import linkedin from "../../assets/social/linkedin.svg"
 import tiktok from "../../assets/social/tiktok.svg"
 import email from "../../assets/icon/Email.svg"
 
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { useTranslation } from "react-i18next";
+import { useCookieConsent } from "../../hooks/useCookieConsent";
+import { getLocaleFromPathname, localizePath } from "../../utils/locale";
 
 function Footer(){
+    const { t } = useTranslation();
+    const { openPreferences } = useCookieConsent();
+    const { pathname } = useLocation();
+    const privacyPath = localizePath('/privacy-policy', getLocaleFromPathname(pathname));
+
     return(
         <div className="flex flex-col items-center justify-between py-6 w-full max-w-7xl gap-6 mx-auto text-center md:flex-row md:text-left">
             <div className="leading-5">
@@ -65,10 +73,18 @@ function Footer(){
             </div>
 
             <Link
-                to="/privacy-policy"
+                to={privacyPath}
                 className="inline-block text-sm transition-colors duration-200 font-display hover:text-primary">
                     Privacy & Policy
             </Link>
+
+            <button
+                type="button"
+                onClick={openPreferences}
+                className="inline-block text-sm underline transition-colors duration-200 font-display underline-offset-4 hover:text-primary"
+            >
+                {t("cookie.manage")}
+            </button>
         </div>
     );
 }
