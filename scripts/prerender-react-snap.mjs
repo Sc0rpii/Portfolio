@@ -12,10 +12,22 @@ const macOsChrome = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrom
 const configuredBrowser =
     process.env.PUPPETEER_EXECUTABLE_PATH?.trim() ||
     process.env.CHROME_PATH?.trim();
+const runReactSnapOnVercel =
+    process.env.ENABLE_REACT_SNAP_ON_VERCEL === "true";
+const skipReactSnap =
+    process.env.SKIP_REACT_SNAP === "true" ||
+    (process.env.VERCEL === "1" && !runReactSnapOnVercel);
 const browserExecutablePath = configuredBrowser ||
     (process.platform === "darwin" && existsSync(macOsChrome)
         ? macOsChrome
         : undefined);
+
+if (skipReactSnap) {
+    console.info(
+        "Prerender: react-snap skipped (set ENABLE_REACT_SNAP_ON_VERCEL=true or SKIP_REACT_SNAP=false to override).",
+    );
+    process.exit(0);
+}
 
 if (!existsSync(resolve(distDirectory, "index.html"))) {
     throw new Error("Cannot prerender: dist/index.html does not exist.");
