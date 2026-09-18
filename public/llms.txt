@@ -11,7 +11,7 @@ The website is written in English. Its primary content covers Mirko's profession
 
 ## Projects
 
-- [Antica Braceria](https://mirkofreschi.com/project/antica-braceria): A landing page concept for a pizzeria as an example of what I can develop for local businesses and small businesses.
+- [Antica Braceria](https://mirkofreschi.com/project/antica-braceria): A landing page concept for a pizzeria, created as an example of a digital solution for local and small businesses.
 - [Pet Sitting Ale](https://mirkofreschi.com/project/pet-sitting-ale): A modern landing page for a pet-sitting business focused on one goal: turning visitors into customers.
 
 ## Professional profiles

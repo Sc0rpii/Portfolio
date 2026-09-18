@@ -19,12 +19,16 @@ import {
 
 import { certificationsData } from "./data/certificationsData";
 import { reviewsData } from "./data/reviewsData";
+import { useTranslation } from "react-i18next";
 
 function App() {
+  const {t, i18n} = useTranslation();
   const { hash, state } = useLocation();
   const isScrollSync = state?.scrollSync === true;
   useScrollReveal();
   const homeUrl = getAbsoluteSiteUrl("/");
+  const locale = i18n.resolvedLanguage || i18n.language;
+  const homeDescription = t("seo.homeDescription");
   const homeStructuredData = {
     "@context": "https://schema.org",
     "@graph": [
@@ -34,7 +38,7 @@ function App() {
         name: siteConfig.name,
         url: homeUrl,
         jobTitle: siteConfig.role,
-        description: siteConfig.description,
+        description: homeDescription,
         sameAs: siteConfig.socialProfiles,
         knowsAbout: [
           "Web Development",
@@ -51,8 +55,8 @@ function App() {
         "@id": `${homeUrl}#website`,
         url: homeUrl,
         name: siteConfig.name,
-        description: siteConfig.description,
-        inLanguage: siteConfig.language,
+        description: homeDescription,
+        inLanguage: locale,
         author: {
           "@id": `${homeUrl}#person`,
         },
@@ -62,8 +66,8 @@ function App() {
         "@id": `${homeUrl}#profile`,
         url: homeUrl,
         name: `${siteConfig.name} — ${siteConfig.role}`,
-        description: siteConfig.description,
-        inLanguage: siteConfig.language,
+        description: homeDescription,
+        inLanguage: locale,
         mainEntity: {
           "@id": `${homeUrl}#person`,
         },
@@ -90,8 +94,8 @@ function App() {
   return (
     <>
     <Seo
-      title="Mirko Freschi | Web & iOS Developer"
-      description={siteConfig.description}
+      title={t("seo.homeTitle")}
+      description={homeDescription}
       path="/"
       structuredData={homeStructuredData}
     />
@@ -156,7 +160,7 @@ function App() {
       className="relative px-5 py-20 sm:px-8 sm:py-28 lg:py-32">
         <div className="flex flex-col items-center justify-center text-center">
           <h2 className="text-3xl font-bold font-display text-heading sm:text-4xl">
-            Certifications & Achievements
+            {t("certification.section")}
           </h2>
           <div className="grid w-full max-w-6xl grid-cols-1 gap-6 mt-10 sm:mt-12 lg:grid-cols-2">
             {certificationsData.map((certification) =>(
@@ -189,7 +193,7 @@ function App() {
       className="relative w-full px-5 py-16 bg-surface sm:px-8 sm:py-20">
         <div className="w-full max-w-7xl mx-auto">
         <h2 className="text-3xl font-bold font-display text-heading sm:text-4xl">
-          Testimonials
+          {t("reviews.section")}
         </h2>
         <div className="flex flex-row gap-5 px-2 py-5 overflow-x-auto overscroll-x-contain touch-pan-x snap-x snap-mandatory scrollbar-none [&::-webkit-scrollbar]:hidden mt-3">
           {reviewsData.map((reviews) => (

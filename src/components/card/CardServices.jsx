@@ -1,4 +1,6 @@
+import { useTranslation } from "react-i18next";
 function CardServices({icon, title, description}){
+    const {t} = useTranslation();
     return(
         <div className="interactive-card flex h-full w-full flex-col gap-5 border border-border bg-surface p-5 text-left rounded-card sm:gap-6 sm:p-7">
             <div className="flex items-center justify-center w-12 h-12 shrink-0 rounded-xl bg-shadow">
@@ -12,12 +14,12 @@ function CardServices({icon, title, description}){
             <h2
             className="text-xl font-bold text-heading font-display sm:text-2xl"
             >
-                {title}
+                {t(title)}
             </h2>
             <p
             className="text-sm leading-6 text-body font-body sm:text-base"
             >
-                {description}
+                {t(description)}
             </p>
         </div>
     );

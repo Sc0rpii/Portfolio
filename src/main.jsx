@@ -5,6 +5,8 @@ import { RouterProvider } from 'react-router-dom'
 
 import {router} from "./router/router.js";
 
+import './hooks/i18n.js';
+
 const rootElement = document.getElementById('root')
 const app = (
   <StrictMode>

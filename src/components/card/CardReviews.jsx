@@ -1,8 +1,10 @@
+import { useTranslation } from "react-i18next";
 import { useEffect, useRef, useState } from "react"
 import testimonialIcon from "../../assets/icon/TestimonialIcon.svg"
 import star from "../../assets/icon/star.svg"
 
 function CardReviews({description, vote, clientType, project}){
+    const {t} = useTranslation();
     const rating = Math.min(5, Math.max(0, Math.round((Number(vote) || 0) * 2) / 2));
     const fullStars = Math.floor(rating);
     const hasHalfStar = rating % 1 !== 0;
@@ -44,7 +46,7 @@ function CardReviews({description, vote, clientType, project}){
                 ref={descriptionRef}
                 className={`overflow-hidden text-base font-body text-body transition-[max-height] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${isExpanded ? "max-h-160" : "line-clamp-6 max-h-36"}`}
             >
-                {description}
+                {t(description)}
             </p>
         </div>
         {hasOverflow && (
@@ -54,12 +56,14 @@ function CardReviews({description, vote, clientType, project}){
                 aria-expanded={isExpanded}
                 onClick={() => setIsExpanded((expanded) => !expanded)}
             >
-                {isExpanded ? "View less" : "View more"}
+                {t(isExpanded ? "reviews.showLess" : "reviews.showMore")}
             </button>
         )}
         <div className="mt-auto">
             {clientType && <p className="text-base font-body text-body">{clientType}</p>}
-            <p className="text-base font-body text-body font-bold">Project: {project}</p>
+            <p className="text-base font-body text-body font-bold">
+                {t("reviews.project", { project })}
+            </p>
         </div>
     </article>
     );

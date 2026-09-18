@@ -1,12 +1,12 @@
 export const engagementData = [
     {
         id: "project-based",
-        title: "Project Based",
-        description: "Fixed scope, clear timeline."
+        title: "engagment.type.project.title",
+        description: "engagment.type.project.description"
     },
     {
         id: "ongoing",
-        title: "Hourly / Ongoing",
-        description: "Flexible collaboration for long-term needs."
+        title: "engagment.type.ongoing.title",
+        description: "engagment.type.ongoing.description"
     }
 ];

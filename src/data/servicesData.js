@@ -6,19 +6,19 @@ export const servicesData = [
     {
         id: "web-development",
         icon: code,
-        title: "Web Development",
-        description: "Clean, responsive websites designed for clarity and usability."
+        title: "service.services.web.title",
+        description: "service.services.web.description"
     },
     {
         id: "ios-development",
         icon: iphone,
-        title: "iOS Development",
-        description: "Native iOS apps built with performance and user experience in mind."
+        title: "service.services.ios.title",
+        description: "service.services.ios.description"
     },
     {
         id: "ui-&-ux-design",
         icon: design,
-        title: "UI & UX Design",
-        description: "Interface and experience design focused on structure and flow."
+        title: "service.services.ui.title",
+        description: "service.services.ui.description"
     }
 ];

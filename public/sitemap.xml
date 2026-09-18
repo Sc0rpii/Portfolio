@@ -1,15 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://mirkofreschi.com/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mirkofreschi.com/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://mirkofreschi.com/it" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mirkofreschi.com/" />
+  </url>
+  <url>
+    <loc>https://mirkofreschi.com/it</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mirkofreschi.com/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://mirkofreschi.com/it" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mirkofreschi.com/" />
   </url>
   <url>
     <loc>https://mirkofreschi.com/services</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mirkofreschi.com/services" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://mirkofreschi.com/it/services" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mirkofreschi.com/services" />
+  </url>
+  <url>
+    <loc>https://mirkofreschi.com/it/services</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mirkofreschi.com/services" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://mirkofreschi.com/it/services" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mirkofreschi.com/services" />
   </url>
   <url>
     <loc>https://mirkofreschi.com/project/antica-braceria</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mirkofreschi.com/project/antica-braceria" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://mirkofreschi.com/it/project/antica-braceria" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mirkofreschi.com/project/antica-braceria" />
+  </url>
+  <url>
+    <loc>https://mirkofreschi.com/it/project/antica-braceria</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mirkofreschi.com/project/antica-braceria" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://mirkofreschi.com/it/project/antica-braceria" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mirkofreschi.com/project/antica-braceria" />
   </url>
   <url>
     <loc>https://mirkofreschi.com/project/pet-sitting-ale</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mirkofreschi.com/project/pet-sitting-ale" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://mirkofreschi.com/it/project/pet-sitting-ale" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mirkofreschi.com/project/pet-sitting-ale" />
+  </url>
+  <url>
+    <loc>https://mirkofreschi.com/it/project/pet-sitting-ale</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mirkofreschi.com/project/pet-sitting-ale" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://mirkofreschi.com/it/project/pet-sitting-ale" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mirkofreschi.com/project/pet-sitting-ale" />
   </url>
 </urlset>

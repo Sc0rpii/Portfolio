@@ -82,6 +82,22 @@ function removeCanonical(html) {
         .replace(/\s*<meta\s+[^>]*property="og:url"[^>]*>/i, "");
 }
 
+function setHtmlLang(html, lang) {
+    return html.replace(/<html\s+lang="[^"]*"/i, `<html lang="${escapeHtml(lang)}"`);
+}
+
+function setAlternateLinks(html, alternates) {
+    let output = html.replace(
+        /\s*<link\s+[^>]*rel="alternate"\s+hreflang="[^"]*"[^>]*>/gi,
+        "",
+    );
+    const tags = Object.entries(alternates)
+        .map(([hreflang, href]) => `    <link rel="alternate" hreflang="${hreflang}" href="${escapeHtml(href)}" />`)
+        .join("\n");
+
+    return output.replace("</head>", `${tags}\n  </head>`);
+}
+
 function setStructuredData(html, data) {
     const script = `<script id="route-structured-data" type="application/ld+json">${JSON.stringify(data).replaceAll("<", "\\u003c")}</script>`;
     const pattern =
@@ -106,6 +122,8 @@ function setPageMetadata(html, {
     imageHeight,
     imageAlt,
     structuredData,
+    lang,
+    alternates,
 }) {
     let output = setTitle(html, title);
 
@@ -121,6 +139,15 @@ function setPageMetadata(html, {
     ].forEach(([attribute, key, value]) => {
         output = setMeta(output, attribute, key, value);
     });
+
+    if (lang) {
+        output = setHtmlLang(output, lang);
+        output = setMeta(output, "property", "og:locale", lang === "it" ? "it_IT" : "en_US");
+    }
+
+    if (alternates) {
+        output = setAlternateLinks(output, alternates);
+    }
 
     if (canonicalUrl) {
         output = setCanonical(output, canonicalUrl);
@@ -152,11 +179,36 @@ function setPageMetadata(html, {
         );
 }
 
+const englishTranslations = JSON.parse(
+    readFileSync(resolve(projectRoot, "src/languages/eng.json"), "utf8"),
+);
+const italianTranslations = JSON.parse(
+    readFileSync(resolve(projectRoot, "src/languages/it.json"), "utf8"),
+);
+const translationsByLocale = { en: englishTranslations, it: italianTranslations };
+
+function getTranslation(locale, key) {
+    const value = key.split(".").reduce(
+        (translation, segment) => translation?.[segment],
+        translationsByLocale[locale],
+    );
+
+    if (typeof value !== "string") {
+        throw new Error(`Missing ${locale} translation for key "${key}".`);
+    }
+
+    return value;
+}
+
+function getEnglishTranslation(key) {
+    return getTranslation("en", key);
+}
+
 function readProjectMetadata() {
     const projectsDirectory = resolve(projectRoot, "src/data/projects");
     const stringLiteral = '"(?:\\\\.|[^"\\\\])*"';
     const objectPattern = new RegExp(
-        `\\{[\\s\\S]*?\\bid:\\s*(${stringLiteral})[\\s\\S]*?\\bwidth:\\s*(\\d+)[\\s\\S]*?\\bheight:\\s*(\\d+)[\\s\\S]*?\\btitle:\\s*(${stringLiteral})[\\s\\S]*?\\bdescription:\\s*(${stringLiteral})[\\s\\S]*?\\}`,
+        `\\{[\\s\\S]*?\\bid:\\s*(${stringLiteral})[\\s\\S]*?\\bwidth:\\s*(\\d+)[\\s\\S]*?\\bheight:\\s*(\\d+)[\\s\\S]*?\\btitle:\\s*(${stringLiteral})[\\s\\S]*?\\bdescriptionKey:\\s*(${stringLiteral})[\\s\\S]*?\\}`,
         "g",
     );
 
@@ -173,7 +225,8 @@ function readProjectMetadata() {
                 width: Number(match[2]),
                 height: Number(match[3]),
                 title: JSON.parse(match[4]),
-                description: JSON.parse(match[5]),
+                descriptionKey: JSON.parse(match[5]),
+                description: getEnglishTranslation(JSON.parse(match[5])),
             }));
         });
 }
@@ -238,8 +291,6 @@ const indexPath = resolve(projectRoot, "dist/index.html");
 const baseHtml = readFileSync(indexPath, "utf8");
 const personId = `${siteUrl}#person`;
 const websiteId = `${siteUrl}#website`;
-const siteDescription =
-    "Portfolio of Mirko Freschi, a freelance Web and iOS Developer creating fast, accessible and maintainable digital products.";
 const socialProfiles = [
     "https://www.instagram.com/mirkofreschi.dev/",
     "https://www.tiktok.com/@mirkofreschi.dev",
@@ -247,124 +298,166 @@ const socialProfiles = [
     "https://github.com/Sc0rpii",
     "https://www.linkedin.com/in/mirko-freschi-1b292b286/",
 ];
-const homeStructuredData = {
-    "@context": "https://schema.org",
-    "@graph": [
-        {
-            "@type": "Person",
-            "@id": personId,
-            name: "Mirko Freschi",
-            url: siteUrl,
-            jobTitle: "Web & iOS Developer",
-            description: siteDescription,
-            sameAs: socialProfiles,
-            knowsAbout: [
-                "Web Development",
-                "iOS Development",
-                "React",
-                "Tailwind CSS",
-                "Swift",
-                "SwiftUI",
-                "UI/UX Design",
-            ],
-        },
-        {
-            "@type": "WebSite",
-            "@id": websiteId,
-            url: siteUrl,
-            name: "Mirko Freschi",
-            description: siteDescription,
-            inLanguage: "en",
-            author: { "@id": personId },
-        },
-        {
-            "@type": "ProfilePage",
-            url: siteUrl,
-            name: "Mirko Freschi — Web & iOS Developer",
-            description: siteDescription,
-            inLanguage: "en",
-            mainEntity: { "@id": personId },
-            isPartOf: { "@id": websiteId },
-        },
-    ],
-};
-const homeHtml = setPageMetadata(baseHtml, {
-    title: "Mirko Freschi | Web & iOS Developer",
-    description: siteDescription,
-    canonicalUrl: siteUrl,
-    structuredData: homeStructuredData,
-});
-writeRouteHtml("", homeHtml);
+const locales = ["en", "it"];
 
-const servicesUrl = new URL("services", siteUrl).href;
-const servicesDescription =
-    "Web development, native iOS development and UI/UX design services by Mirko Freschi for clear, reliable and maintainable digital products.";
-const serviceItems = [
-    ["Web Development", "Clean, responsive websites designed for clarity and usability."],
-    ["iOS Development", "Native iOS apps built with performance and user experience in mind."],
-    ["UI & UX Design", "Interface and experience design focused on structure and flow."],
-];
-const servicesHtml = setPageMetadata(homeHtml, {
-    title: "Web, iOS & UI/UX Development Services | Mirko Freschi",
-    description: servicesDescription,
-    canonicalUrl: servicesUrl,
-    structuredData: {
+function getLocalizedRoutePath(routePath, locale) {
+    if (locale !== "it") {
+        return routePath;
+    }
+
+    return routePath ? `it/${routePath}` : "it";
+}
+
+function getLocalizedUrl(routePath, locale) {
+    return new URL(getLocalizedRoutePath(routePath, locale), siteUrl).href;
+}
+
+function getAlternates(routePath) {
+    return {
+        en: getLocalizedUrl(routePath, "en"),
+        it: getLocalizedUrl(routePath, "it"),
+        "x-default": getLocalizedUrl(routePath, "en"),
+    };
+}
+
+locales.forEach((locale) => {
+    const homeUrl = getLocalizedUrl("", locale);
+    const homeDescription = getTranslation(locale, "seo.homeDescription");
+    const homeTitle = getTranslation(locale, "seo.homeTitle");
+    const homeStructuredData = {
         "@context": "https://schema.org",
         "@graph": [
             {
-                "@type": "WebPage",
-                url: servicesUrl,
-                name: "Web, iOS & UI/UX Development Services",
-                description: servicesDescription,
-                inLanguage: "en",
-                isPartOf: { "@id": websiteId },
-                about: { "@id": personId },
-            },
-            {
-                "@type": "ItemList",
-                name: "Development and design services",
-                itemListElement: serviceItems.map(([name, description], index) => ({
-                    "@type": "ListItem",
-                    position: index + 1,
-                    item: {
-                        "@type": "Service",
-                        name,
-                        description,
-                        url: `${servicesUrl}#services`,
-                        provider: {
-                            "@type": "Person",
-                            "@id": personId,
-                            name: "Mirko Freschi",
-                        },
-                    },
-                })),
-            },
-            {
-                "@type": "BreadcrumbList",
-                itemListElement: [
-                    {
-                        "@type": "ListItem",
-                        position: 1,
-                        name: "Home",
-                        item: siteUrl,
-                    },
-                    {
-                        "@type": "ListItem",
-                        position: 2,
-                        name: "Services",
-                        item: servicesUrl,
-                    },
+                "@type": "Person",
+                "@id": personId,
+                name: "Mirko Freschi",
+                url: siteUrl,
+                jobTitle: "Web & iOS Developer",
+                description: homeDescription,
+                sameAs: socialProfiles,
+                knowsAbout: [
+                    "Web Development",
+                    "iOS Development",
+                    "React",
+                    "Tailwind CSS",
+                    "Swift",
+                    "SwiftUI",
+                    "UI/UX Design",
                 ],
             },
+            {
+                "@type": "WebSite",
+                "@id": websiteId,
+                url: homeUrl,
+                name: "Mirko Freschi",
+                description: homeDescription,
+                inLanguage: locale,
+                author: { "@id": personId },
+            },
+            {
+                "@type": "ProfilePage",
+                url: homeUrl,
+                name: `Mirko Freschi — ${getTranslation(locale, "hero.subtitle")}`,
+                description: homeDescription,
+                inLanguage: locale,
+                mainEntity: { "@id": personId },
+                isPartOf: { "@id": websiteId },
+            },
         ],
-    },
+    };
+    const homeHtml = setPageMetadata(baseHtml, {
+        title: homeTitle,
+        description: homeDescription,
+        canonicalUrl: homeUrl,
+        structuredData: homeStructuredData,
+        lang: locale,
+        alternates: getAlternates(""),
+    });
+    writeRouteHtml(getLocalizedRoutePath("", locale), homeHtml);
 });
-writeRouteHtml("services", servicesHtml);
+
+locales.forEach((locale) => {
+    const servicesUrl = getLocalizedUrl("services", locale);
+    const homeUrl = getLocalizedUrl("", locale);
+    const servicesDescription = getTranslation(locale, "service.description");
+    const servicesTitle = getTranslation(locale, "seo.servicesTitle");
+    const serviceItems = [
+        [
+            getTranslation(locale, "service.services.web.title"),
+            getTranslation(locale, "service.services.web.description"),
+        ],
+        [
+            getTranslation(locale, "service.services.ios.title"),
+            getTranslation(locale, "service.services.ios.description"),
+        ],
+        [
+            getTranslation(locale, "service.services.ui.title"),
+            getTranslation(locale, "service.services.ui.description"),
+        ],
+    ];
+    const servicesHtml = setPageMetadata(baseHtml, {
+        title: servicesTitle,
+        description: servicesDescription,
+        canonicalUrl: servicesUrl,
+        lang: locale,
+        alternates: getAlternates("services"),
+        structuredData: {
+            "@context": "https://schema.org",
+            "@graph": [
+                {
+                    "@type": "WebPage",
+                    url: servicesUrl,
+                    name: servicesTitle,
+                    description: servicesDescription,
+                    inLanguage: locale,
+                    isPartOf: { "@id": websiteId },
+                    about: { "@id": personId },
+                },
+                {
+                    "@type": "ItemList",
+                    name: servicesTitle,
+                    itemListElement: serviceItems.map(([name, description], index) => ({
+                        "@type": "ListItem",
+                        position: index + 1,
+                        item: {
+                            "@type": "Service",
+                            name,
+                            description,
+                            url: `${servicesUrl}#services`,
+                            provider: {
+                                "@type": "Person",
+                                "@id": personId,
+                                name: "Mirko Freschi",
+                            },
+                        },
+                    })),
+                },
+                {
+                    "@type": "BreadcrumbList",
+                    itemListElement: [
+                        {
+                            "@type": "ListItem",
+                            position: 1,
+                            name: "Home",
+                            item: homeUrl,
+                        },
+                        {
+                            "@type": "ListItem",
+                            position: 2,
+                            name: getTranslation(locale, "service.section"),
+                            item: servicesUrl,
+                        },
+                    ],
+                },
+            ],
+        },
+    });
+    writeRouteHtml(getLocalizedRoutePath("services", locale), servicesHtml);
+});
 
 const projects = readProjectMetadata();
 projects.forEach((project) => {
     const routePath = `project/${encodeURIComponent(project.id)}`;
-    const projectUrl = new URL(routePath, siteUrl).href;
     const projectImagePath = `og/projects/${encodeURIComponent(project.id)}.jpg`;
     const projectImageSource = resolve(projectRoot, "public", projectImagePath);
 
@@ -375,69 +468,83 @@ projects.forEach((project) => {
     }
 
     const projectImageUrl = new URL(projectImagePath, siteUrl).href;
-    const projectImageAlt = `Preview of ${project.title}, a project by Mirko Freschi`;
-    const projectHtml = setPageMetadata(homeHtml, {
-        title: `${project.title} | Project by Mirko Freschi`,
-        description: project.description,
-        canonicalUrl: projectUrl,
-        type: "article",
-        imageUrl: projectImageUrl,
-        imageType: "image/jpeg",
-        imageWidth: project.width,
-        imageHeight: project.height,
-        imageAlt: projectImageAlt,
-        structuredData: {
-            "@context": "https://schema.org",
-            "@graph": [
-                {
-                    "@type": "WebPage",
-                    "@id": `${projectUrl}#webpage`,
-                    url: projectUrl,
-                    name: `${project.title} | Project by Mirko Freschi`,
-                    description: project.description,
-                    inLanguage: "en",
-                    isPartOf: { "@id": websiteId },
-                },
-                {
-                    "@type": "CreativeWork",
-                    "@id": `${projectUrl}#project`,
-                    url: projectUrl,
-                    name: project.title,
-                    description: project.description,
-                    image: projectImageUrl,
-                    inLanguage: "en",
-                    mainEntityOfPage: { "@id": `${projectUrl}#webpage` },
-                    creator: {
-                        "@type": "Person",
-                        "@id": personId,
-                        name: "Mirko Freschi",
+
+    locales.forEach((locale) => {
+        const projectUrl = getLocalizedUrl(routePath, locale);
+        const homeUrl = getLocalizedUrl("", locale);
+        const description = getTranslation(locale, project.descriptionKey);
+        const title = getTranslation(locale, "projectDetail.seoTitle")
+            .replace("{{project}}", project.title)
+            .replace("{{name}}", "Mirko Freschi");
+        const projectImageAlt = getTranslation(locale, "projectDetail.imageAlt").replace(
+            "{{project}}",
+            project.title,
+        );
+        const projectHtml = setPageMetadata(baseHtml, {
+            title,
+            description,
+            canonicalUrl: projectUrl,
+            type: "article",
+            imageUrl: projectImageUrl,
+            imageType: "image/jpeg",
+            imageWidth: project.width,
+            imageHeight: project.height,
+            imageAlt: projectImageAlt,
+            lang: locale,
+            alternates: getAlternates(routePath),
+            structuredData: {
+                "@context": "https://schema.org",
+                "@graph": [
+                    {
+                        "@type": "WebPage",
+                        "@id": `${projectUrl}#webpage`,
+                        url: projectUrl,
+                        name: title,
+                        description,
+                        inLanguage: locale,
+                        isPartOf: { "@id": websiteId },
                     },
-                },
-                {
-                    "@type": "BreadcrumbList",
-                    itemListElement: [
-                        {
-                            "@type": "ListItem",
-                            position: 1,
-                            name: "Home",
-                            item: siteUrl,
+                    {
+                        "@type": "CreativeWork",
+                        "@id": `${projectUrl}#project`,
+                        url: projectUrl,
+                        name: project.title,
+                        description,
+                        image: projectImageUrl,
+                        inLanguage: locale,
+                        mainEntityOfPage: { "@id": `${projectUrl}#webpage` },
+                        creator: {
+                            "@type": "Person",
+                            "@id": personId,
+                            name: "Mirko Freschi",
                         },
-                        {
-                            "@type": "ListItem",
-                            position: 2,
-                            name: project.title,
-                            item: projectUrl,
-                        },
-                    ],
-                },
-            ],
-        },
+                    },
+                    {
+                        "@type": "BreadcrumbList",
+                        itemListElement: [
+                            {
+                                "@type": "ListItem",
+                                position: 1,
+                                name: "Home",
+                                item: homeUrl,
+                            },
+                            {
+                                "@type": "ListItem",
+                                position: 2,
+                                name: project.title,
+                                item: projectUrl,
+                            },
+                        ],
+                    },
+                ],
+            },
+        });
+        writeRouteHtml(getLocalizedRoutePath(routePath, locale), projectHtml);
     });
-    writeRouteHtml(routePath, projectHtml);
 });
 
 if (preserveRenderedHtml) {
-    const notFoundHtml = setPageMetadata(homeHtml, {
+    const notFoundHtml = setPageMetadata(baseHtml, {
         title: "Page not found | Mirko Freschi",
         description:
             "The requested page could not be found. Return to Mirko Freschi's Web and iOS development portfolio.",
@@ -450,5 +557,5 @@ if (preserveRenderedHtml) {
 cleanBuildMetadata(resolve(projectRoot, "dist"));
 
 console.info(
-    `SEO: generated static metadata for Home, Services and ${projects.length} projects.`,
+    `SEO: generated static metadata for Home, Services and ${projects.length} projects across ${locales.length} locales.`,
 );

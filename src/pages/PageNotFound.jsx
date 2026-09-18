@@ -1,10 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Navbar from "../components/navigation/Navbar";
 import Seo from "../components/seo/Seo";
 import useScrollReveal from "../hooks/useScrollReveal";
+import { getLocaleFromPathname, localizePath } from "../utils/locale";
 
 function PageNotFound(){
     useScrollReveal();
+    const { pathname } = useLocation();
+    const homePath = localizePath('/', getLocaleFromPathname(pathname));
 
     return(
         <>
@@ -28,7 +31,7 @@ function PageNotFound(){
                         The page you are looking for does not exist or has been moved.
                     </p>
                     <Link
-                        to="/#hero"
+                        to={`${homePath}#hero`}
                         className="inline-block px-6 py-4 mt-8 transition-transform duration-200 bg-primary rounded-button text-heading hover:-translate-y-0.5 sm:mt-10 sm:px-7.5"
                     >
                         Back to home

@@ -45,6 +45,23 @@ function escapeXml(value) {
         .replaceAll(">", "&gt;");
 }
 
+const englishTranslations = JSON.parse(
+    readFileSync(resolve(projectRoot, "src/languages/eng.json"), "utf8"),
+);
+
+function getEnglishTranslation(key) {
+    const value = key.split(".").reduce(
+        (translation, segment) => translation?.[segment],
+        englishTranslations,
+    );
+
+    if (typeof value !== "string") {
+        throw new Error(`Missing English translation for project key "${key}".`);
+    }
+
+    return value;
+}
+
 function getProjects() {
     const projectsDirectory = resolve(projectRoot, "src/data/projects");
     const projectFiles = readdirSync(projectsDirectory)
@@ -52,7 +69,7 @@ function getProjects() {
     const projects = new Map();
     const stringLiteral = '"(?:\\\\.|[^"\\\\])*"';
     const objectPattern = new RegExp(
-        `\\{[\\s\\S]*?\\bid:\\s*(${stringLiteral})[\\s\\S]*?\\btitle:\\s*(${stringLiteral})[\\s\\S]*?\\bdescription:\\s*(${stringLiteral})[\\s\\S]*?\\}`,
+        `\\{[\\s\\S]*?\\bid:\\s*(${stringLiteral})[\\s\\S]*?\\btitle:\\s*(${stringLiteral})[\\s\\S]*?\\bdescriptionKey:\\s*(${stringLiteral})[\\s\\S]*?\\}`,
         "g",
     );
 
@@ -63,7 +80,7 @@ function getProjects() {
             const project = {
                 id: JSON.parse(match[1]),
                 title: JSON.parse(match[2]),
-                description: JSON.parse(match[3]),
+                description: getEnglishTranslation(JSON.parse(match[3])),
             };
             projects.set(project.id, project);
         }
@@ -137,11 +154,40 @@ const routePaths = [
     "services",
     ...projects.map((project) => `project/${encodeURIComponent(project.id)}`),
 ];
-const urls = routePaths.map((path) => new URL(path, siteUrl).href);
+const locales = ["en", "it"];
+
+function getLocalizedRoutePath(routePath, locale) {
+    if (locale !== "it") {
+        return routePath;
+    }
+
+    return routePath ? `it/${routePath}` : "it";
+}
+
+const sitemapEntries = routePaths.map((routePath) => ({
+    urls: Object.fromEntries(
+        locales.map((locale) => [
+            locale,
+            new URL(getLocalizedRoutePath(routePath, locale), siteUrl).href,
+        ]),
+    ),
+}));
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls
-    .map((url) => `  <url>\n    <loc>${escapeXml(url)}</loc>\n  </url>`)
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+${sitemapEntries
+    .flatMap(({ urls }) =>
+        locales.map((locale) => {
+            const alternateLinks = [
+                ...locales.map(
+                    (alternateLocale) =>
+                        `    <xhtml:link rel="alternate" hreflang="${alternateLocale}" href="${escapeXml(urls[alternateLocale])}" />`,
+                ),
+                `    <xhtml:link rel="alternate" hreflang="x-default" href="${escapeXml(urls.en)}" />`,
+            ].join("\n");
+
+            return `  <url>\n    <loc>${escapeXml(urls[locale])}</loc>\n${alternateLinks}\n  </url>`;
+        }),
+    )
     .join("\n")}
 </urlset>
 `;
@@ -153,5 +199,5 @@ writeFileSync(
 );
 writeFileSync(sitemapPath, sitemap, "utf8");
 console.info(
-    `SEO: generated sitemap.xml with ${urls.length} indexable URLs and llms.txt.`,
+    `SEO: generated sitemap.xml with ${sitemapEntries.length * locales.length} indexable URLs and llms.txt.`,
 );

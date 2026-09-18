@@ -1,0 +1,30 @@
+#privacy-body > h1,h2,h3 {
+    font: var(--font-display);
+    font-weight: bold;
+    font-size: clamp(1.2rem, 2rem, 2.5rem);
+    color: var(--color-heading);
+}
+header, #privacy-body {
+    padding-right: 1rem;
+}
+b{
+    color: var(--color-heading);
+}
+#privacy-body >article > ul{
+    list-style: disc;
+    margin-left: 20px;
+}
+#privacy-body > article > ol{
+    list-style: decimal;
+    margin-left: 20px;
+}
+#privacy-body > article {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-top: 20px;
+}
+
+#privacy-body > article:last-child{
+    margin-bottom: 20px;
+}

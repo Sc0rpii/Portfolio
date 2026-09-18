@@ -1,9 +1,15 @@
-import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { Link, useLocation } from "react-router-dom";
+import { getLocaleFromPathname, localizePath } from "../../utils/locale";
 
-function CardPortfolio({id, img, width, height, title, description}){ 
+function CardPortfolio({ id, img, width, height, title, descriptionKey }) {
+    const {t} = useTranslation();
+    const { pathname } = useLocation();
+    const projectPath = localizePath(`/project/${id}`, getLocaleFromPathname(pathname));
+
     return(
         <Link
-        to={`/project/${id}`}
+        to={projectPath}
         className="interactive-card group block h-full w-full overflow-hidden rounded-card border border-border bg-surface"
         >
             <div className="overflow-hidden">
@@ -22,7 +28,7 @@ function CardPortfolio({id, img, width, height, title, description}){
                     {title}
                 </h3>
                 <p className="text-sm leading-6 font-body">
-                    {description}
+                    {t(descriptionKey)}
                 </p>
             </div>
         </Link>

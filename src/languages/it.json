@@ -1,0 +1,269 @@
+{
+    "navbar": {
+        "about": "Me",
+        "portfolio": "Portfolio",
+        "services": "Servizzi",
+        "reviews": "Recensioni",
+        "contact": "Contattami"
+    },
+
+    "hero": {
+        "title": "Ciao, sono Mirko Freschi",
+        "subtitle": "Sviluppatore Web & iOS",
+        "description1": "Progetto e realizzo prodotti digitali puliti e affidabili, con particolare attenzione all'usabilità, alle prestazioni e alla manutenibilità a lungo termine.",
+        "description2": "Sono uno sviluppatore freelance con esperienza nella creazione di interfacce web e applicazioni iOS.",
+        "description3": "Mi concentro su chiarezza, struttura e soluzioni scalabili — sia che lavori con agenzie o clienti privati. Apprezzo il codice pulito, le decisioni di progettazione ponderate e la comunicazione chiara in ogni progetto.",
+        "ButtonView": "Visualizza Portfolio",
+        "ButtonContact": "Contattami"
+    },
+
+    "expertise": {
+        "title": "Strumenti, tecnologie e capacità",
+        "subtitle": "Un insieme di competenze pratiche sviluppate attraverso progetti pratici, apprendimento continuo e risoluzione di problemi nel mondo reale."
+    },
+
+    "skills": {
+        "web":{
+            "title": "Sviluppo Web",
+            "description": "Creazione di applicazioni web moderne e reattive con codice pulito e manutenibile.",
+            "responsive": "Layout reattivi",
+            "performance": "Costruzioni incentrate sulle prestazioni"
+        },
+        "ios": {
+            "title": "Sviluppo IOS",
+            "description": "Creazione di interfacce iOS native con particolare attenzione all'usabilità e alla reattività.",
+            "uikit": "Interfacce basate su UIKit",
+            "lifecycle": "Ciclo di vita e ottimizzazione delle app",
+            "architecture": "Principi di architettura pulita"
+        }
+    },
+
+    "portfolio": {
+        "title": "Lavoro selezionato pronto per la produzione",
+        "subtitle": "Una selezione curata di progetti incentrati su usabilità, prestazioni e presentazione professionale."
+    },
+
+    "projects": {
+        "petSittingAle": {
+            "description": "Una landing page moderna per un'attività di pet sitting focalizzata su un unico obiettivo: trasformare i visitatori in clienti.",
+            "overview": "PetsittingAle è un sito web sviluppato per un pet sitter con l'obiettivo di offrire una presenza online moderna e professionale, volta a convertire i visitatori in nuovi clienti. Il progetto è stato progettato concentrandosi sull'esperienza utente, sulla velocità di caricamento e sull'usabilità su qualsiasi dispositivo.\n\nLa landing page presenta chiaramente i servizi offerti, una galleria fotografica, una sezione dedicata alle recensioni dei clienti, alle FAQ e un invito all'azione finale che consente di contattare rapidamente il pet sitter tramite un modulo dedicato.\n\nTecnicamente, il progetto è stato sviluppato utilizzando HTML5, Tailwind CSS, JavaScript e PHP, con particolare attenzione alle buone pratiche di sviluppo. Il sistema di contatti utilizza PHPMailer per l'invio sicuro di e-mail tramite SMTP, evitando l'uso della funzione mail() di PHP e garantendo una maggiore affidabilità nella consegna dei messaggi.\n\nPer rendere il sito facilmente gestibile nel tempo, è stato progettato anche un sistema di recensioni basato su MariaDB, che consente ai clienti di inviare una recensione tramite un modulo dedicato. Ogni revisione viene inizialmente salvata come in attesa di approvazione e può essere moderata tramite un'area amministrativa protetta dall'autenticazione, da cui è possibile approvare, rifiutare o bloccare i contenuti prima di pubblicarli sul sito.\n\nDurante lo sviluppo sono state adottate diverse best practice relative alla sicurezza, tra cui la convalida dei dati lato client e lato server, l'uso di query preparate (PDO) per prevenire l'iniezione SQL, gestione sicura delle password tramite hashing, protezione delle credenziali tramite variabili d'ambiente e un framework progettato per essere facilmente estendibile con nuove funzionalità.\n\nQuesto progetto rappresenta un passo importante nel mio percorso verso lo sviluppo full-stack, consentendomi di integrare un frontend moderno con un vero backend e un database."
+        },
+        "anticaBraceria": {
+            "description": "Un concept di landing page per una pizzeria, pensato come esempio di soluzione digitale per attività e piccole imprese locali.",
+            "overview": "Antica Braceria è un concept di landing page per una pizzeria. Il progetto esplora una presentazione chiara dell'offerta, una struttura visiva orientata alla conversione e un'esperienza responsive, pensata per essere efficace su ogni dispositivo."
+        }
+    },
+
+    "projectDetail": {
+        "seoTitle": "{{project}} | Progetto di {{name}}",
+        "imageAlt": "Anteprima di {{project}}, un progetto di Mirko Freschi",
+        "imageCaption": "Anteprima del progetto {{project}}",
+        "home": "Home",
+        "backToPortfolio": "Torna al portfolio",
+        "professionalType": "Progetto professionale",
+        "personalType": "Esplorazione personale",
+        "professionalFocus": "Lavoro pronto per la produzione",
+        "personalFocus": "Concetto e sperimentazione",
+        "projectType": "Tipologia di progetto",
+        "focus": "Obiettivo",
+        "overview": "Panoramica del progetto",
+        "about": "Il progetto",
+        "liveWebsite": "Sito web online",
+        "liveTitle": "Esplora il progetto completo.",
+        "liveDescription": "Apri la versione pubblicata per vedere interfaccia, contenuti e interazioni nel loro contesto finale.",
+        "visitWebsite": "Visita il sito web",
+        "liveLinkSoon": "Link al sito in arrivo"
+    },
+
+    "exploration": {
+        "section": "Esplorazione",
+        "title": "Progetti personali e concettuali",
+        "subtitle": "Progetti creati in modo indipendente che esplorano layout, interazioni e approcci di sviluppo end-to-end."
+    },
+
+    "experience": {
+        "section": "Esperienze",
+        "title": "Background e percorso professionale",
+        "subtitle": "Una panoramica della mia esperienza, del mio percorso di apprendimento e del mio lavoro in corso come sviluppatore freelance.",
+        "react": {
+            "title": "Imparare React",
+            "description": "Creazione di moderne applicazioni front-end con React.js, rafforzando al contempo le mie competenze in JavaScript, HTML, CSS e Tailwind CSS. Passo successivo: React + TypeScript e fondamenti del back-end."
+        },
+        "afpA": {
+            "title": "Apple Foundation Program (Avanzato)",
+            "description": "Ha partecipato all'Apple Foundation Program, completando il corso fondamentale incentrato su watchOS, sviluppo tvOS, design thinking e creazione collaborativa di prodotti."
+        },
+        "afpB": {
+            "title": "Apple Foundation Program (Base)",
+            "description": "Ha partecipato all'Apple Foundation Program, completando il corso fondamentale incentrato sullo sviluppo iOS, sul design thinking e sulla creazione collaborativa di prodotti."
+        },
+        "skillR": {
+            "title": "Affinamento delle competenze e aggiornamento tecnico",
+            "description": "Concentrato sul perfezionamento delle competenze esistenti, sul miglioramento della qualità del codice e sull'approfondimento della comprensione degli argomenti trattati in precedenza nello sviluppo web e iOS."
+        },
+        "webAdva": {
+            "title": "Sviluppo Web Avanzato",
+            "description": "Competenza ampliata nello sviluppo web con framework e strumenti moderni, tra cui Tailwind CSS e Bootstrap."
+        },
+        "db": {
+            "title": "Fondamenti di Backend e Database",
+            "description": "Ho studiato la progettazione e la creazione di database relazionali, con particolare attenzione a MySQL, alla struttura dei dati e alla gestione efficiente dei dati."
+        },
+        "ios": {
+            "title": "Sviluppo iOS Nativo",
+            "description": "Ho iniziato a sviluppare applicazioni iOS native utilizzando SwiftUI, concentrandosi sulla moderna architettura iOS e sulle esperienze mobili incentrate sull'utente."
+        },
+        "webFoundation": {
+            "title": "Fondamenti di Sviluppo Web",
+            "description": "Ho iniziato a studiare lo sviluppo web con HTML, CSS e JavaScript, gettando solide basi sui fondamenti del front-end e sugli standard web."
+        }
+    },
+
+    "certification":{
+        "section": "Certificazioni e risultati",
+        "issued": "Rilasciato",
+        "verify": "Verifica delle credenziali",
+        "afpA":{
+            "title": "Apple Foundation Program (Base)"
+        },
+        "afpB":{
+            "title": "Apple Foundation Program (Avanzato)"
+        }
+    },
+
+    "reviews":{
+        "section": "Recensioni",
+        "showMore": "Visualizza di più",
+        "showLess": "Visualizza meno",
+        "project": "Progetto: {{project}}",
+        "petSittingAle":{
+            "description": "Mirko è stato professionale, facile con cui comunicare e si preoccupava sinceramente di creare il sito web giusto per la mia attività. Ha ascoltato ogni mia richiesta, mi ha offerto preziosi consigli e mi ha fornito esattamente ciò di cui avevo bisogno. L'intera esperienza è stata fluida dall'inizio alla fine."
+        }
+    },
+
+    "contact":{
+        "title": "Mettiti in Conttato",
+        "subtitle": "Segui il mio percorso o contattami tramite i miei canali social."
+    },
+
+    "service": {
+        "section": "Servizzi",
+        "title": "Come posso aiutarti",
+        "description": "Servizi di sviluppo web, sviluppo iOS nativo e progettazione UI/UX di Mirko Freschi per prodotti digitali chiari, affidabili e manutenibili.",
+        "services":{
+            "web":{
+                "title": "Sviluppo Web",
+                "description": "Siti web puliti e reattivi, progettati per garantire chiarezza e usabilità."
+            },
+            "ios":{
+                "title": "Sviluppo IOS",
+                "description": "App iOS native create pensando alle prestazioni e all'esperienza utente."
+            },
+            "ui": {
+                "title": "UI & UX Design",
+                "description": "Progettazione dell'interfaccia e dell'esperienza focalizzata su struttura e flusso."
+            }
+        },
+        "hosting": {
+            "title": "Hosting e responsabilità del progetto",
+            "description": "Aspettative chiare su hosting, configurazione e responsabilità — a seconda delle esigenze del progetto.",
+            "detail": "Dettagli Tecnici",
+            "options": {
+                "optionA": {
+                    "title": "Hosting gestito dal cliente",
+                    "description": "Lavoro direttamente con la tua configurazione di hosting esistente e fornisco tutto il necessario per la distribuzione."
+                },
+                "optionB": {
+                    "title": "Hosting gestito dagli sviluppatori",
+                    "description": "L'hosting e la configurazione possono essere gestiti da me se necessario, a seconda dell'ambito del progetto."
+                }
+            }
+        }
+    },
+
+    "moreproject": {
+        "section": "Lavoro Aggiuntivo",
+        "title": "Altri progetti ed esperimenti",
+        "description": "Ulteriori esempi che mettono in mostra portata, adattabilità e curiosità tecnica."
+    },
+
+    "engagment":{
+        "section": "Coinvolgimento",
+        "title": "Modi di lavorare insieme",
+        "description": "Modelli di collaborazione semplici e trasparenti, adattati a diversi ambiti di progetto.",
+        "type": {
+            "project":{
+                "title": "Basato sul Progetto",
+                "description": "Ambito fisso, cronologia chiara."
+            },
+            "ongoing": {
+                "title": "Orario / In corso",
+                "description": "Collaborazione flessibile per esigenze a lungo termine."
+            }
+        }
+    },
+
+    "cookie": {
+        "title": "Utilizziamo i Cookie",
+        "body": "Questo sito utilizza esclusivamente cookie tecnici e cookie analitici anonimizzati per raccogliere statistiche aggregate sul traffico. Non viene effettuata alcuna profilazione a scopo pubblicitario.",
+        "privacy": "Leggi la ",
+        "button": "Accetta",
+        "reject": "Rifiuta",
+        "manage": "Gestisci preferenze cookie"
+    },
+
+    "seo": {
+        "homeTitle": "Mirko Freschi | Sviluppatore Web & iOS",
+        "homeDescription": "Portfolio di Mirko Freschi, sviluppatore freelance Web e iOS che crea prodotti digitali veloci, accessibili e manutenibili.",
+        "servicesTitle": "Servizi di Sviluppo Web, iOS & UI/UX | Mirko Freschi"
+    },
+
+    "privacy": {
+        "title": "Privacy & Cookie Policy",
+        "lastUpdated": "Ultimo aggiornamento",
+        "date": "1 Settembre 2026",
+        "intro1": "Questo sito web rappresenta il mio portfolio professionale personale. Non costituisce un'attività d'impresa, non vende servizi o prodotti e non raccoglie dati personali a fini commerciali.",
+        "intro2": "In questa pagina ti spiego in modo trasparente come vengono gestiti i pochissimi dati generati dalla tua navigazione, nel rispetto del Regolamento UE 2016/679 (GDPR) e delle principali normative globali sulla privacy.",
+        "owner": {
+        "title": "Titolare del trattamento",
+        "desc": "Il Titolare del trattamento dei dati è il proprietario del portfolio:",
+        "name": "Nome e Cognome:",
+        "location": "Località:",
+        "city": "Palermo",
+        "email": "Email di contatto:"
+        },
+        "analytics": {
+        "title": "Tipologia di Dati Raccolti e Google Analytics",
+        "desc1": "Per capire quante persone visitano il mio portfolio e quali progetti riscuotono maggiore interesse, utilizzo il servizio statistico",
+        "desc2": "fornito da Google Ireland Limited.",
+        "desc3": "Per garantire la massima tutela della tua riservatezza, lo strumento è stato configurato con restrizioni severissime:",
+        "ip": "Anonimizzazione degli IP:",
+        "ipDesc": "Google Analytics 4 maschera e rende anonimo il tuo indirizzo IP a livello di rete prima di salvare qualsiasi dato. È impossibile per me o per Google risalire alla tua identità o posizione esatta.",
+        "sharing": "Nessuna condivisione dei dati:",
+        "sharingDesc": "Ho disattivato qualsiasi condivisione dei dati verso altri servizi Google, funzioni pubblicitarie (Google Signals) o profilazione commerciale.",
+        "forms": "Nessun Form di Contatto:",
+        "formsDesc": "Sul sito non sono presenti moduli di inserimento dati. Gli unici canali di contatto sono i link diretti ai miei profili social o alla mia email.",
+        "conclusion": "I dati raccolti sono esclusivamente metriche (es. numero di visualizzazione della pagina, tempo speso sul portfolio)."
+        },
+        "consent": {
+        "title": "Base Giuridica del Trattamento e Consenso",
+        "desc1": "Il tracciamento statistico avviene unicamente se esprimi il tuo",
+        "desc2": "consenso esplicito",
+        "desc3": "cliccando su \"Accetta\" nel banner iniziale. Se clicchi invece su \"Rifiuta\", Google Analytics rimarrà completamente bloccato. Puoi cambiare la tua scelta in qualsiasi momento dal link \"Gestisci preferenze cookie\" nel footer. La base giuridica è il tuo consenso libero e revocabile in qualsiasi momento."
+        },
+        "cookies": {
+        "title": "Dettaglio dei Cookie Utilizzati",
+        "desc": "Questo sito utilizza solo le seguenti categorie di cookie:",
+        "technical": "Cookie Tecnici (necessari):",
+        "technicalDesc": "Un cookie di prima parte generato dal sito per memorizzare la tua scelta sul banner (se hai accettato o rifiutato i cookie statistici). Non richiede consenso, non traccia la tua identità e scade dopo 6 mesi.",
+        "statistical": "Cookie Statistici (Di Terza Parte):",
+        "statisticalDesc": "Rilasciati da Google Analytics solo previo consenso",
+        "gaDesc": "Identifica le visite in modo anonimo (Durata: 14 mesi).",
+        "gaStarDesc": "Mantiene lo stato della sessione anonima (Durata: 14 mesi)."
+        },
+        "rights": {
+        "title": "Diritti dell'Utente",
+        "desc": "Anche in assenza di dati identificativi diretti, hai il diritto di verificare lo stato del tuo consenso, revocarlo o richiedere informazioni all'indirizzo email indicato al Punto 1."
+        }
+    }
+}

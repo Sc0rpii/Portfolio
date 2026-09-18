@@ -1,24 +1,30 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './Navbar.css';
+import { useTranslation } from 'react-i18next';
+import { getLocaleFromPathname, localizePath } from '../../utils/locale';
 
 function Navbar(){
+const { t } = useTranslation();
+
     const { pathname, hash, search } = useLocation();
     const navigate = useNavigate();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [activeSection, setActiveSection] = useState(
         pathname === '/' ? hash.slice(1) || 'hero' : null
     );
+    const currentLocale = getLocaleFromPathname(pathname);
+    const homePath = localizePath('/', currentLocale);
     const linkClass = 'inline-block transition-colors duration-200 hover:text-primary';
     const navigationItems = [
-        { label: 'About', to: '/#hero', sectionHash: '#hero' },
-        { label: 'Portfolio', to: '/#portfolio', sectionHash: '#portfolio' },
-        { label: 'Services', to: '/services', pathname: '/services' },
-        { label: 'Reviews', to: '/#reviews', sectionHash: '#reviews' },
+        { label: t("navbar.about"), to: `${homePath}#hero`, sectionHash: '#hero' },
+        { label: t("navbar.portfolio"), to: `${homePath}#portfolio`, sectionHash: '#portfolio' },
+        { label: t("navbar.services"), to: localizePath('/services', currentLocale), pathname: localizePath('/services', currentLocale) },
+        { label: t("navbar.reviews"), to: `${homePath}#reviews`, sectionHash: '#reviews' },
     ];
 
     const isHomeSectionActive = (sectionHash) => {
-        if (pathname !== '/') {
+        if (pathname !== homePath) {
             return false;
         }
 
@@ -26,7 +32,7 @@ function Navbar(){
     };
 
     useEffect(() => {
-        if (pathname !== '/') {
+        if (pathname !== homePath) {
             return undefined;
         }
 
@@ -123,7 +129,7 @@ function Navbar(){
                 window.clearTimeout(urlSyncTimeoutId);
             }
         };
-    }, [navigate, pathname, search]);
+    }, [navigate, pathname, search, homePath]);
 
     const isNavigationItemActive = (item) => {
         if (item.pathname) {
@@ -157,7 +163,7 @@ function Navbar(){
         >
             <div id="brand">
                 <Link
-                    to="/#hero"
+                    to={`${homePath}#hero`}
                     onClick={() => setIsMenuOpen(false)}
                     className="inline-block text-xl font-bold transition-colors duration-200 font-display hover:text-primary sm:text-2xl"
                 >
@@ -169,12 +175,12 @@ function Navbar(){
                     {renderNavigationItems()}
                 </ul>
             </div>
-            <div id="button" className="hidden lg:block">
+            <div id="button" className="hidden items-center gap-4 lg:flex">
                 <Link
-                    to="/#contact"
+                    to={`${homePath}#contact`}
                     className="inline-block px-6 py-3.5 font-bold transition-transform duration-200 bg-primary rounded-button hover:-translate-y-0.5 xl:px-7.5 xl:py-4"
                 >
-                    Let's Connect
+                    {t("navbar.contact")}
                 </Link>
             </div>
 
@@ -209,11 +215,11 @@ function Navbar(){
                     {renderNavigationItems()}
                     <li>
                         <Link
-                            to="/#contact"
+                            to={`${homePath}#contact`}
                             onClick={() => setIsMenuOpen(false)}
                             className="inline-flex w-full items-center justify-center rounded-button bg-primary px-6 py-3.5 font-bold text-heading"
                         >
-                            Let's Connect
+                            {t("navbar.contact")}
                         </Link>
                     </li>
                 </ul>
