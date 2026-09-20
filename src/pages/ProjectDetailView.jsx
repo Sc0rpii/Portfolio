@@ -47,11 +47,11 @@ function ProjectDetailView(){
     const projectFocus = isProfessionalProject
         ? t("projectDetail.professionalFocus")
         : t("projectDetail.personalFocus");
-    const projectDescription = t(project.description);
-    const accurateDescription = project.accurateDescription
-        ? t(project.accurateDescription)
-        : "";
-    const overview = accurateDescription.trim() || projectDescription;
+    const descriptionKey = project.descriptionKey || project.description;
+    const overviewKey = project.overviewKey || project.accurateDescription;
+    const projectDescription = descriptionKey ? t(descriptionKey) : "";
+    const projectOverview = overviewKey ? t(overviewKey) : "";
+    const overview = projectOverview.trim() || projectDescription;
     const overviewParagraphs = overview
         .split(/\n\s*\n/)
         .filter(Boolean);
@@ -170,7 +170,7 @@ function ProjectDetailView(){
                                 {project.title}
                             </h1>
                             <p className="max-w-3xl mt-5 text-sm leading-7 font-body text-body sm:mt-6 sm:text-lg">
-                                {t("professionalProject.description")}
+                                {projectDescription}
                             </p>
                         </div>
 
@@ -221,7 +221,7 @@ function ProjectDetailView(){
                             <div className="mt-6 space-y-5 sm:mt-8 sm:space-y-6">
                                 {overviewParagraphs.map((paragraph, index) => (
                                     <p
-                                        key={`${t("professionalProject.accurateDescription")}-paragraph-${index}`}
+                                        key={`${project.id}-overview-paragraph-${index}`}
                                         className="text-sm leading-7 font-body text-body sm:text-base sm:leading-8"
                                     >
                                         {paragraph}
