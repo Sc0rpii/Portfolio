@@ -51,6 +51,10 @@
         "anticaBraceria": {
             "description": "A landing page concept for a pizzeria, created as an example of a digital solution for local and small businesses.",
             "overview": "Antica Braceria is a landing page concept for a pizzeria. The project explores a clear presentation of the offer, a conversion-oriented visual structure, and a responsive experience designed to work effectively on every device."
+        },
+        "aurastudio": {
+            "description": "A landing page concept for a beauty salon, also suitable for hairdressers and beauty salons, designed to enhance the identity of the business and offer an elegant and professional online experience.",
+            "overview": "AURA STUDIO is a premium website concept designed for a beauty salon that wants to communicate elegance, attention to detail, and brand identity. The design combines editorial typography, impactful imagery, and a refined palette to create a visual experience consistent with the salon's positioning. The property features the main services, the stylist team, a gallery of works and a section dedicated to booking, with an interface designed to guide the user from discovering the salon to contact."
         }
     },
 
