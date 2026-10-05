@@ -8,6 +8,22 @@ import ProjectDetailView from "../pages/ProjectDetailView";
 import Privacy from "../pages/Privacy";
 import SiteLayout from "../components/layout/SiteLayout";
 
+const pageRoutes = [
+  ["/services", createElement(Services)],
+  ["/project/:id", createElement(ProjectDetailView)],
+  ["/privacy-policy", createElement(Privacy)],
+];
+
+function localizedSuffixRoutes(locale) {
+  const suffix = locale === "it" ? "it" : "eng";
+
+  return pageRoutes.map(([path, element]) => ({
+    path: `${path}/${suffix}`,
+    element: createElement(SiteLayout, { locale }),
+    children: [{ index: true, element }],
+  }));
+}
+
 export const router = createBrowserRouter(
   [
     {
@@ -57,6 +73,8 @@ export const router = createBrowserRouter(
         { path: "*", element: createElement(PageNotFound) },
       ],
     },
+    ...localizedSuffixRoutes("it"),
+    ...localizedSuffixRoutes("en"),
   ],
   {
     basename: import.meta.env.BASE_URL,

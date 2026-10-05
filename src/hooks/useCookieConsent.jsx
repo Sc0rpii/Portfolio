@@ -48,6 +48,7 @@ const CookieConsentContext = createContext(null);
 export function CookieConsentProvider({ children }) {
     const [consent, setConsent] = useState(() => readStoredConsent());
     const [isPromptOpen, setIsPromptOpen] = useState(() => readStoredConsent() === null);
+    const [isPromptRequested, setIsPromptRequested] = useState(false);
 
     useEffect(() => {
         if (consent === "accepted") {
@@ -61,6 +62,7 @@ export function CookieConsentProvider({ children }) {
         writeStoredConsent("accepted");
         setConsent("accepted");
         setIsPromptOpen(false);
+        setIsPromptRequested(false);
     }, []);
 
     const rejectCookies = useCallback(() => {
@@ -68,15 +70,21 @@ export function CookieConsentProvider({ children }) {
         clearGoogleAnalyticsCookies();
         setConsent("rejected");
         setIsPromptOpen(false);
+        setIsPromptRequested(false);
     }, []);
 
     const openPreferences = useCallback(() => {
         setIsPromptOpen(true);
+        setIsPromptRequested(true);
+    }, []);
+
+    const dismissPrompt = useCallback(() => {
+        setIsPromptRequested(false);
     }, []);
 
     const value = useMemo(
-        () => ({ consent, isPromptOpen, acceptCookies, rejectCookies, openPreferences }),
-        [consent, isPromptOpen, acceptCookies, rejectCookies, openPreferences],
+        () => ({ consent, isPromptOpen, isPromptRequested, acceptCookies, rejectCookies, openPreferences, dismissPrompt }),
+        [consent, isPromptOpen, isPromptRequested, acceptCookies, rejectCookies, openPreferences, dismissPrompt],
     );
 
     return (

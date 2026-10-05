@@ -5,7 +5,7 @@ import { getLocaleFromPathname, localizePath } from "../../utils/locale";
 function CardPortfolio({ id, img, width, height, title, descriptionKey }) {
     const {t} = useTranslation();
     const { pathname } = useLocation();
-    const projectPath = localizePath(`/project/${id}`, getLocaleFromPathname(pathname));
+    const projectPath = localizePath(`/project/${id}`, getLocaleFromPathname(pathname), pathname);
 
     return(
         <Link

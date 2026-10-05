@@ -1,18 +1,21 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
-import LanguageDetector from "i18next-browser-languagedetector";
 
 import enText from "../languages/eng.json";
 import itText from "../languages/it.json";
+import { resolveLocale } from "../utils/locale";
+
+const initialLocale = resolveLocale(window.location.pathname);
 
 i18n
-.use(LanguageDetector)
 .use(initReactI18next)
 .init({
+    lng: initialLocale,
     resources: {
         en: { translation: enText },
         it: { translation: itText }
     },
+    supportedLngs: ["en", "it"],
     fallbackLng: 'en',
     interpolation: {
         escapeValue: false

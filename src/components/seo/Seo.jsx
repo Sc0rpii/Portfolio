@@ -4,7 +4,7 @@ import {
     getAbsoluteSiteUrl,
     siteConfig,
 } from "../../config/site";
-import { getLocaleFromPathname, localizePath, stripLocaleFromPathname } from "../../utils/locale";
+import { getLocaleFromPathname, localizePath, resolveLocale, stripLocaleFromPathname } from "../../utils/locale";
 
 const DEFAULT_ROBOTS =
     "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
@@ -75,6 +75,7 @@ function Seo({
 
     useEffect(() => {
         const locale = getLocaleFromPathname(pathname);
+        const displayLocale = resolveLocale(pathname);
         const routePath = localizePath(path ?? pathname, locale);
         const canonicalUrl = canonical
             ? getAbsoluteSiteUrl(routePath)
@@ -108,7 +109,7 @@ function Seo({
         upsertMeta(
             'meta[property="og:locale"]',
             ["property", "og:locale"],
-            locale === "it" ? "it_IT" : siteConfig.locale,
+            displayLocale === "it" ? "it_IT" : siteConfig.locale,
         );
         upsertMeta('meta[property="og:url"]', ["property", "og:url"], canonicalUrl);
         upsertMeta('meta[property="og:image"]', ["property", "og:image"], imageUrl);
@@ -169,7 +170,7 @@ function Seo({
         upsertAlternateLanguage("en", getAbsoluteSiteUrl(untranslatedPath));
         upsertAlternateLanguage("it", getAbsoluteSiteUrl(localizePath(untranslatedPath, "it")));
         upsertAlternateLanguage("x-default", getAbsoluteSiteUrl(untranslatedPath));
-        document.documentElement.lang = locale;
+        document.documentElement.lang = displayLocale;
 
         const verificationTags = [
             [

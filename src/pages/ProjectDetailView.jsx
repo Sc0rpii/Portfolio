@@ -18,7 +18,7 @@ function ProjectDetailView(){
     const { t, i18n } = useTranslation();
     const { id } = useParams();
     const { pathname } = useLocation();
-    const homePath = localizePath('/', getLocaleFromPathname(pathname));
+    const homePath = localizePath('/', getLocaleFromPathname(pathname), pathname);
     useScrollReveal();
 
     useLayoutEffect(() => {
@@ -35,7 +35,7 @@ function ProjectDetailView(){
     );
 
     if(!project){
-        return <Navigate to={localizePath('/404', getLocaleFromPathname(pathname))} replace />;
+        return <Navigate to={localizePath('/404', getLocaleFromPathname(pathname), pathname)} replace />;
     }
 
     const isProfessionalProject = professionalProjects.some(

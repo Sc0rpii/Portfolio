@@ -14,11 +14,11 @@ function Footer(){
     const { t } = useTranslation();
     const { openPreferences } = useCookieConsent();
     const { pathname } = useLocation();
-    const privacyPath = localizePath('/privacy-policy', getLocaleFromPathname(pathname));
+    const privacyPath = localizePath('/privacy-policy', getLocaleFromPathname(pathname), pathname);
 
     return(
-        <div className="flex flex-col items-center justify-between py-6 w-full max-w-7xl gap-6 mx-auto text-center md:flex-row md:text-left">
-            <div className="leading-5">
+        <div className="flex flex-col items-center py-6 w-full max-w-7xl gap-6 mx-auto text-center md:grid md:grid-cols-3 md:text-left">
+            <div className="leading-5 md:justify-self-start">
                 <p className="text-xl font-bold text-heading font-body">
                     Mirko Freschi
                 </p>
@@ -72,6 +72,7 @@ function Footer(){
                 </a>
             </div>
 
+            <div className="flex flex-col items-start gap-1 md:justify-self-end">
             <Link
                 to={privacyPath}
                 className="inline-block text-sm transition-colors duration-200 font-display hover:text-primary">
@@ -85,6 +86,7 @@ function Footer(){
             >
                 {t("cookie.manage")}
             </button>
+            </div>
         </div>
     );
 }

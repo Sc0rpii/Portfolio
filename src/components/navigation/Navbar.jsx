@@ -2,7 +2,10 @@ import { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './Navbar.css';
 import { useTranslation } from 'react-i18next';
-import { getLocaleFromPathname, localizePath } from '../../utils/locale';
+import {
+    getLocaleFromPathname,
+    localizePath,
+} from '../../utils/locale';
 
 function Navbar(){
 const { t } = useTranslation();
@@ -14,12 +17,12 @@ const { t } = useTranslation();
         pathname === '/' ? hash.slice(1) || 'hero' : null
     );
     const currentLocale = getLocaleFromPathname(pathname);
-    const homePath = localizePath('/', currentLocale);
+    const homePath = localizePath('/', currentLocale, pathname);
     const linkClass = 'inline-block transition-colors duration-200 hover:text-primary';
     const navigationItems = [
         { label: t("navbar.about"), to: `${homePath}#hero`, sectionHash: '#hero' },
         { label: t("navbar.portfolio"), to: `${homePath}#portfolio`, sectionHash: '#portfolio' },
-        { label: t("navbar.services"), to: localizePath('/services', currentLocale), pathname: localizePath('/services', currentLocale) },
+        { label: t("navbar.services"), to: localizePath('/services', currentLocale, pathname), pathname: localizePath('/services', currentLocale, pathname) },
         { label: t("navbar.reviews"), to: `${homePath}#reviews`, sectionHash: '#reviews' },
     ];
 

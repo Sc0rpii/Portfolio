@@ -9,7 +9,7 @@ import { getLocaleFromPathname, localizePath } from '../../utils/locale';
 function Hero(){
     const { t } = useTranslation();
     const { pathname } = useLocation();
-    const homePath = localizePath('/', getLocaleFromPathname(pathname));
+    const homePath = localizePath('/', getLocaleFromPathname(pathname), pathname);
 
     return(
         <div className='relative w-full px-5 py-12 sm:px-8 sm:py-16 lg:py-20'>

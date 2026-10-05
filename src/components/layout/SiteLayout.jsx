@@ -1,21 +1,19 @@
 import { useEffect } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import CookieBanner from "../banner/CookieBanner";
 import { CookieConsentProvider } from "../../hooks/useCookieConsent";
+import { resolveLocale } from "../../utils/locale";
 
-function SiteLayout({ locale }) {
+function SiteLayout() {
     const { i18n } = useTranslation();
+    const { pathname } = useLocation();
 
     useEffect(() => {
-        // Only the /it prefix forces a language; every other route keeps i18next's automatic browser detection.
-        if (!locale) {
-            return;
-        }
-
-        i18n.changeLanguage(locale);
-        document.documentElement.lang = locale;
-    }, [i18n, locale]);
+        const activeLocale = resolveLocale(pathname);
+        i18n.changeLanguage(activeLocale);
+        document.documentElement.lang = activeLocale;
+    }, [i18n, pathname]);
     return (
         <CookieConsentProvider>
             <Outlet />

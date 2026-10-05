@@ -1,25 +1,29 @@
 import { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useCookieConsent } from "../../hooks/useCookieConsent";
+import { stripLocaleFromPathname } from "../../utils/locale";
 
 function CookieBanner() {
     const { t } = useTranslation();
-    const { isPromptOpen, acceptCookies, rejectCookies } = useCookieConsent();
+    const { isPromptOpen: isPromptPending, isPromptRequested, acceptCookies, rejectCookies, dismissPrompt } = useCookieConsent();
+    const { pathname } = useLocation();
+    // On the policy page the banner stays hidden (no tracking until consent) unless explicitly reopened.
+    const isPrivacyPage = stripLocaleFromPathname(pathname) === "/privacy-policy";
+    const isPromptOpen = isPromptPending && (!isPrivacyPage || isPromptRequested);
     const dialogRef = useRef(null);
     const acceptButtonRef = useRef(null);
 
     useEffect(() => {
-        if (!isPromptOpen) {
-            return undefined;
+        // Always reset on close: prerendered HTML may carry a stale overflow lock.
+        document.body.style.overflow = isPromptOpen ? "hidden" : "";
+
+        if (isPromptOpen) {
+            acceptButtonRef.current?.focus();
         }
 
-        const previousOverflow = document.body.style.overflow;
-        document.body.style.overflow = "hidden";
-        acceptButtonRef.current?.focus();
-
         return () => {
-            document.body.style.overflow = previousOverflow;
+            document.body.style.overflow = "";
         };
     }, [isPromptOpen]);
 
@@ -81,6 +85,16 @@ function CookieBanner() {
                         Privacy &amp; Cookie Policy
                     </Link>
                 </p>
+
+                {isPrivacyPage && (
+                    <button
+                        type="button"
+                        onClick={dismissPrompt}
+                        className="mt-4 text-sm underline transition-colors font-display underline-offset-4 hover:text-primary"
+                    >
+                        {t("cookie.close")}
+                    </button>
+                )}
 
                 <div className="flex flex-col-reverse gap-3 mt-6 sm:flex-row sm:justify-end">
                     <button

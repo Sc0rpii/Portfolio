@@ -7,7 +7,7 @@ import { getLocaleFromPathname, localizePath } from "../utils/locale";
 function PageNotFound(){
     useScrollReveal();
     const { pathname } = useLocation();
-    const homePath = localizePath('/', getLocaleFromPathname(pathname));
+    const homePath = localizePath('/', getLocaleFromPathname(pathname), pathname);
 
     return(
         <>

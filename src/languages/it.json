@@ -213,7 +213,8 @@
         "privacy": "Leggi la ",
         "button": "Accetta",
         "reject": "Rifiuta",
-        "manage": "Gestisci preferenze cookie"
+        "manage": "Gestisci preferenze cookie",
+        "close": "Chiudi e continua a leggere"
     },
 
     "seo": {

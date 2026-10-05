@@ -47,6 +47,12 @@ const routes = [
     "/it",
     "/it/services",
     ...projectRoutes.map((route) => `/it${route}`),
+    "/eng",
+    "/services/it",
+    "/services/eng",
+    "/privacy-policy/it",
+    "/privacy-policy/eng",
+    ...projectRoutes.flatMap((route) => [`${route}/it`, `${route}/eng`]),
 ];
 
 await run({

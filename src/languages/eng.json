@@ -213,7 +213,8 @@
         "privacy": "Read the ",
         "button": "Accept",
         "reject": "Reject",
-        "manage": "Manage cookie preferences"
+        "manage": "Manage cookie preferences",
+        "close": "Close and keep reading"
     },
 
     "seo": {
