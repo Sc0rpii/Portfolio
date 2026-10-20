@@ -59,6 +59,11 @@ function Services(){
                         name: t(service.title),
                         description: t(service.description),
                         url: `${servicesUrl}#services`,
+                        areaServed: [
+                            { "@type": "City", name: "Palermo" },
+                            { "@type": "Country", name: "Italy" },
+                            "Worldwide",
+                        ],
                         provider: {
                             "@type": "Person",
                             "@id": `${siteUrl}#person`,

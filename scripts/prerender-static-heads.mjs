@@ -294,6 +294,12 @@ locales.forEach((locale) => {
                 jobTitle: "Web & iOS Developer",
                 description: homeDescription,
                 sameAs: socialProfiles,
+                address: {
+                    "@type": "PostalAddress",
+                    addressLocality: "Palermo",
+                    addressRegion: "Sicilia",
+                    addressCountry: "IT",
+                },
                 knowsAbout: [
                     "Web Development",
                     "iOS Development",
@@ -383,6 +389,11 @@ locales.forEach((locale) => {
                             name,
                             description,
                             url: `${servicesUrl}#services`,
+                            areaServed: [
+                                { "@type": "City", name: "Palermo" },
+                                { "@type": "Country", name: "Italy" },
+                                "Worldwide",
+                            ],
                             provider: {
                                 "@type": "Person",
                                 "@id": personId,

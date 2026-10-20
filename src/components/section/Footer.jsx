@@ -22,6 +22,25 @@ function Footer(){
                 <p className="text-xl font-bold text-heading font-body">
                     Mirko Freschi
                 </p>
+                <p className="inline-flex flex-wrap items-center justify-center gap-x-1.5 mt-1 mb-0.5 text-sm md:justify-start">
+                    <svg
+                        aria-hidden="true"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.75"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="shrink-0">
+                        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                        <circle cx="12" cy="10" r="3" />
+                    </svg>
+                    <span>{t("footer.location")}</span>
+                    <span aria-hidden="true">·</span>
+                    <span>{t("footer.remote")}</span>
+                </p>
                 <p
                 className="text-sm">
                     &copy; 2026 All rights reserved

@@ -214,6 +214,11 @@
         }
     },
 
+    "footer": {
+        "location": "Palermo, Italia",
+        "remote": "Lavoro da remoto in tutto il mondo"
+    },
+
     "cookie": {
         "title": "Utilizziamo i Cookie",
         "body": "Questo sito utilizza esclusivamente cookie tecnici e cookie analitici anonimizzati per raccogliere statistiche aggregate sul traffico. Non viene effettuata alcuna profilazione a scopo pubblicitario.",
@@ -226,7 +231,7 @@
 
     "seo": {
         "homeTitle": "Mirko Freschi | Sviluppatore Web & iOS",
-        "homeDescription": "Portfolio di Mirko Freschi, sviluppatore freelance Web e iOS che crea prodotti digitali veloci, accessibili e manutenibili.",
+        "homeDescription": "Sviluppatore freelance Web e iOS a Palermo, disponibile da remoto in tutta Italia e nel mondo. Prodotti digitali veloci, accessibili e manutenibili.",
         "servicesTitle": "Servizi di Sviluppo Web, iOS & UI/UX | Mirko Freschi"
     },
 

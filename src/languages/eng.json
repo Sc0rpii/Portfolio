@@ -214,6 +214,11 @@
         }
     },
 
+    "footer": {
+        "location": "Palermo, Italy",
+        "remote": "Working remotely worldwide"
+    },
+
     "cookie": {
         "title": "We use Cookie",
         "body": "This website exclusively uses technical cookies and anonymized analytical cookies to collect aggregate traffic statistics. No tracking or profiling is performed for advertising purposes.",
@@ -226,7 +231,7 @@
 
     "seo": {
         "homeTitle": "Mirko Freschi | Web & iOS Developer",
-        "homeDescription": "Portfolio of Mirko Freschi, a freelance Web and iOS Developer creating fast, accessible and maintainable digital products.",
+        "homeDescription": "Freelance Web and iOS Developer based in Palermo, Italy, working remotely with clients worldwide. Fast, accessible and maintainable digital products.",
         "servicesTitle": "Web, iOS & UI/UX Development Services | Mirko Freschi"
     },
 

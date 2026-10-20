@@ -43,6 +43,12 @@ function App() {
         jobTitle: siteConfig.role,
         description: homeDescription,
         sameAs: siteConfig.socialProfiles,
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Palermo",
+          addressRegion: "Sicilia",
+          addressCountry: "IT",
+        },
         knowsAbout: [
           "Web Development",
           "iOS Development",
