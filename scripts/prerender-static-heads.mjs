@@ -3,10 +3,8 @@ import {
     mkdirSync,
     readFileSync,
     readdirSync,
-    rmSync,
     writeFileSync,
 } from "node:fs";
-import { spawnSync } from "node:child_process";
 import { dirname, resolve } from "node:path";
 import process from "node:process";
 import { loadEnv } from "vite";
@@ -17,7 +15,6 @@ const env = {
     ...loadEnv(mode, projectRoot, ""),
     ...process.env,
 };
-const preserveRenderedHtml = env.PRERENDERED_HTML === "true";
 
 function getSiteUrl(value) {
     if (!value) {
@@ -232,55 +229,17 @@ function readProjectMetadata() {
 }
 
 function writeHtml(outputPath, html) {
-    let output = html;
-
-    if (preserveRenderedHtml && existsSync(outputPath)) {
-        const renderedHtml = readFileSync(outputPath, "utf8");
-        const renderedBody = renderedHtml.match(/<body\b[^>]*>[\s\S]*<\/body>/i);
-
-        if (renderedBody) {
-            output = output.replace(
-                /<body\b[^>]*>[\s\S]*<\/body>/i,
-                renderedBody[0],
-            );
-        }
-    }
-
     mkdirSync(dirname(outputPath), { recursive: true });
-    writeFileSync(outputPath, output, "utf8");
+    writeFileSync(outputPath, html, "utf8");
 }
 
 function writeRouteHtml(routePath, html) {
     writeHtml(resolve(projectRoot, "dist", routePath, "index.html"), html);
 }
 
-function removeAppleDoubleFiles(directory) {
-    readdirSync(directory, { withFileTypes: true }).forEach((entry) => {
-        const entryPath = resolve(directory, entry.name);
-
-        if (entry.name.startsWith("._")) {
-            rmSync(entryPath, { force: true, recursive: entry.isDirectory() });
-            return;
-        }
-
-        if (entry.isDirectory()) {
-            removeAppleDoubleFiles(entryPath);
-        }
-    });
-}
-
-function cleanBuildMetadata(directory) {
-    if (process.platform === "darwin") {
-        spawnSync("xattr", ["-cr", directory], { stdio: "ignore" });
-    }
-
-    removeAppleDoubleFiles(directory);
-}
-
 const siteUrl = getSiteUrl(env.VITE_SITE_URL);
 
 if (!siteUrl) {
-    cleanBuildMetadata(resolve(projectRoot, "dist"));
     console.info(
         "SEO: VITE_SITE_URL is not configured; static route metadata was skipped.",
     );
@@ -543,19 +502,28 @@ projects.forEach((project) => {
     });
 });
 
-if (preserveRenderedHtml) {
-    const notFoundHtml = setPageMetadata(baseHtml, {
-        title: "Page not found | Mirko Freschi",
-        description:
-            "The requested page could not be found. Return to Mirko Freschi's Web and iOS development portfolio.",
-        canonicalUrl: "",
+// The privacy policy must answer 200 when opened directly, but stays out of the
+// index and the sitemap.
+locales.forEach((locale) => {
+    const privacyHtml = setPageMetadata(baseHtml, {
+        title: `${getTranslation(locale, "privacy.title")} | Mirko Freschi`,
+        description: getTranslation(locale, "privacy.intro1"),
+        canonicalUrl: getLocalizedUrl("privacy-policy", locale),
         robots: "noindex, follow",
+        lang: locale,
     });
-    writeHtml(resolve(projectRoot, "dist/404.html"), notFoundHtml);
-}
+    writeRouteHtml(getLocalizedRoutePath("privacy-policy", locale), privacyHtml);
+});
 
-cleanBuildMetadata(resolve(projectRoot, "dist"));
+const notFoundHtml = setPageMetadata(baseHtml, {
+    title: "Page not found | Mirko Freschi",
+    description:
+        "The requested page could not be found. Return to Mirko Freschi's Web and iOS development portfolio.",
+    canonicalUrl: "",
+    robots: "noindex, follow",
+});
+writeHtml(resolve(projectRoot, "dist/404.html"), notFoundHtml);
 
 console.info(
-    `SEO: generated static metadata for Home, Services and ${projects.length} projects across ${locales.length} locales.`,
+    `SEO: generated static metadata for Home, Services, Privacy and ${projects.length} projects across ${locales.length} locales.`,
 );

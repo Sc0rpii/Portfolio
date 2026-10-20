@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
 import { useCookieConsent } from "../../hooks/useCookieConsent";
-import { stripLocaleFromPathname } from "../../utils/locale";
+import { getLocaleFromPathname, localizePath, stripLocaleFromPathname } from "../../utils/locale";
 
 function CookieBanner() {
     const { t } = useTranslation();
@@ -69,9 +69,9 @@ function CookieBanner() {
                 role="dialog"
                 className="w-full max-w-xl p-5 border shadow-2xl rounded-card border-border bg-surface sm:p-8"
             >
-                <h1 id="cookie-banner-title" className="text-2xl font-semibold text-primary font-display sm:text-3xl">
+                <h2 id="cookie-banner-title" className="text-2xl font-semibold text-primary font-display sm:text-3xl">
                     {t("cookie.title")}
-                </h1>
+                </h2>
 
                 <p id="cookie-banner-description" className="mt-4 text-sm leading-6 font-body sm:text-base">
                     {t("cookie.body")}
@@ -79,7 +79,7 @@ function CookieBanner() {
                 <p className="mt-3 text-sm leading-6 font-body sm:text-base">
                     {t("cookie.privacy")}
                     <Link
-                        to="/privacy-policy"
+                        to={localizePath("/privacy-policy", getLocaleFromPathname(pathname))}
                         className="font-semibold underline transition-colors text-primary underline-offset-4 hover:text-heading"
                     >
                         Privacy &amp; Cookie Policy

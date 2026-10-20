@@ -14,7 +14,7 @@ function Footer(){
     const { t } = useTranslation();
     const { openPreferences } = useCookieConsent();
     const { pathname } = useLocation();
-    const privacyPath = localizePath('/privacy-policy', getLocaleFromPathname(pathname), pathname);
+    const privacyPath = localizePath('/privacy-policy', getLocaleFromPathname(pathname));
 
     return(
         <div className="flex flex-col items-center py-6 w-full max-w-7xl gap-6 mx-auto text-center md:grid md:grid-cols-3 md:text-left">

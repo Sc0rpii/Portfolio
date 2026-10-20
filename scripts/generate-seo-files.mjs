@@ -108,7 +108,7 @@ function getLlmsTxt(siteUrl, projects) {
 
 > Official portfolio of Mirko Freschi, a freelance developer who designs and builds web interfaces, native iOS applications and maintainable digital products.
 
-The website is written in English. Its primary content covers Mirko's professional profile, development and design services, selected client work, personal projects, experience, certifications and testimonials.
+The website is available in English (root URLs) and Italian (URLs under /it). Its primary content covers Mirko's professional profile, development and design services, selected client work, personal projects, experience, certifications and testimonials.
 
 ## Main pages
 

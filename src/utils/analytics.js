@@ -17,11 +17,15 @@ export function disableGoogleAnalytics() {
 }
 
 export function loadGoogleAnalytics() {
-    if (typeof window === "undefined" || document.getElementById(GA_SCRIPT_ID)) {
+    if (typeof window === "undefined") {
         return;
     }
 
     window[getDisableFlagName()] = false;
+
+    if (document.getElementById(GA_SCRIPT_ID)) {
+        return;
+    }
     window.dataLayer = window.dataLayer || [];
 
     window.gtag = window.gtag || function gtag() {

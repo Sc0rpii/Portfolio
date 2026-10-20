@@ -1,8 +1,15 @@
 {
+    "notFound": {
+        "title": "Pagina non trovata | Mirko Freschi",
+        "description": "La pagina richiesta non esiste. Torna al portfolio di sviluppo Web e iOS di Mirko Freschi.",
+        "heading": "Pagina non trovata",
+        "body": "La pagina che stai cercando non esiste o è stata spostata.",
+        "cta": "Torna alla home"
+    },
     "navbar": {
-        "about": "Me",
+        "about": "Chi sono",
         "portfolio": "Portfolio",
-        "services": "Servizzi",
+        "services": "Servizi",
         "reviews": "Recensioni",
         "contact": "Contattami"
     },
@@ -151,7 +158,7 @@
     },
 
     "service": {
-        "section": "Servizzi",
+        "section": "Servizi",
         "title": "Come posso aiutarti",
         "description": "Servizi di sviluppo web, sviluppo iOS nativo e progettazione UI/UX di Mirko Freschi per prodotti digitali chiari, affidabili e manutenibili.",
         "services":{
@@ -260,7 +267,7 @@
         "title": "Dettaglio dei Cookie Utilizzati",
         "desc": "Questo sito utilizza solo le seguenti categorie di cookie:",
         "technical": "Cookie Tecnici (necessari):",
-        "technicalDesc": "Un cookie di prima parte generato dal sito per memorizzare la tua scelta sul banner (se hai accettato o rifiutato i cookie statistici). Non richiede consenso, non traccia la tua identità e scade dopo 6 mesi.",
+        "technicalDesc": "Un cookie di prima parte generato dal sito per memorizzare la tua scelta sul banner (se hai accettato o rifiutato i cookie statistici). Non richiede consenso, non traccia la tua identità e scade dopo 6 mesi. Un secondo cookie di prima parte (\"lang\") viene impostato solo se apri un link che forza la lingua (/eng o /it?lang=it); scade dopo 1 giorno.",
         "statistical": "Cookie Statistici (Di Terza Parte):",
         "statisticalDesc": "Rilasciati da Google Analytics solo previo consenso",
         "gaDesc": "Identifica le visite in modo anonimo (Durata: 14 mesi).",

@@ -10,19 +10,19 @@ import {
 function Navbar(){
 const { t } = useTranslation();
 
-    const { pathname, hash, search } = useLocation();
+    const { pathname, search } = useLocation();
     const navigate = useNavigate();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [activeSection, setActiveSection] = useState(
-        pathname === '/' ? hash.slice(1) || 'hero' : null
-    );
     const currentLocale = getLocaleFromPathname(pathname);
-    const homePath = localizePath('/', currentLocale, pathname);
+    const homePath = localizePath('/', currentLocale);
+    const [activeSection, setActiveSection] = useState(
+        pathname === homePath ? 'hero' : null
+    );
     const linkClass = 'inline-block transition-colors duration-200 hover:text-primary';
     const navigationItems = [
         { label: t("navbar.about"), to: `${homePath}#hero`, sectionHash: '#hero' },
         { label: t("navbar.portfolio"), to: `${homePath}#portfolio`, sectionHash: '#portfolio' },
-        { label: t("navbar.services"), to: localizePath('/services', currentLocale, pathname), pathname: localizePath('/services', currentLocale, pathname) },
+        { label: t("navbar.services"), to: localizePath('/services', currentLocale), pathname: localizePath('/services', currentLocale) },
         { label: t("navbar.reviews"), to: `${homePath}#reviews`, sectionHash: '#reviews' },
     ];
 

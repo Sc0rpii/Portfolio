@@ -15,10 +15,10 @@ import {
 import { getLocaleFromPathname, localizePath } from "../utils/locale";
 
 function ProjectDetailView(){
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
     const { id } = useParams();
     const { pathname } = useLocation();
-    const homePath = localizePath('/', getLocaleFromPathname(pathname), pathname);
+    const homePath = localizePath('/', getLocaleFromPathname(pathname));
     useScrollReveal();
 
     useLayoutEffect(() => {
@@ -35,7 +35,7 @@ function ProjectDetailView(){
     );
 
     if(!project){
-        return <Navigate to={localizePath('/404', getLocaleFromPathname(pathname), pathname)} replace />;
+        return <Navigate to={localizePath('/404', getLocaleFromPathname(pathname))} replace />;
     }
 
     const isProfessionalProject = professionalProjects.some(
@@ -57,8 +57,10 @@ function ProjectDetailView(){
         .filter(Boolean);
     const projectPath = `/project/${encodeURIComponent(project.id)}`;
     const projectSocialImage = `/og/projects/${encodeURIComponent(project.id)}.jpg`;
-    const projectUrl = getAbsoluteSiteUrl(projectPath);
-    const homeUrl = getAbsoluteSiteUrl("/");
+    const locale = getLocaleFromPathname(pathname);
+    const siteUrl = getAbsoluteSiteUrl("/");
+    const projectUrl = getAbsoluteSiteUrl(localizePath(projectPath, locale));
+    const homeUrl = getAbsoluteSiteUrl(homePath);
     const projectImageUrl = getAbsoluteSiteUrl(projectSocialImage);
     const projectStructuredData = {
         "@context": "https://schema.org",
@@ -72,9 +74,9 @@ function ProjectDetailView(){
                     name: siteConfig.name,
                 }),
                 description: overview,
-                inLanguage: i18n.resolvedLanguage || i18n.language,
+                inLanguage: locale,
                 isPartOf: {
-                    "@id": `${homeUrl}#website`,
+                    "@id": `${siteUrl}#website`,
                 },
             },
             {
@@ -84,13 +86,13 @@ function ProjectDetailView(){
                 name: project.title,
                 description: overview,
                 image: projectImageUrl,
-                inLanguage: i18n.resolvedLanguage || i18n.language,
+                inLanguage: locale,
                 mainEntityOfPage: {
                     "@id": `${projectUrl}#webpage`,
                 },
                 creator: {
                     "@type": "Person",
-                    "@id": `${homeUrl}#person`,
+                    "@id": `${siteUrl}#person`,
                     name: siteConfig.name,
                 },
                 ...(project.url ? { sameAs: project.url } : {}),

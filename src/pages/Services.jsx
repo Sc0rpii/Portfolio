@@ -17,13 +17,17 @@ import { detailsData } from "../data/detailsData";
 import { engagementData } from "../data/engagementData";
 import { moreProjects } from "../data/projects";
 import { useTranslation } from "react-i18next";
+import { useLocation } from "react-router-dom";
+import { getLocaleFromPathname, localizePath } from "../utils/locale";
 
 function Services(){
-    const {t, i18n} = useTranslation();
+    const {t} = useTranslation();
+    const { pathname } = useLocation();
     useScrollReveal();
-    const servicesUrl = getAbsoluteSiteUrl("/services");
-    const homeUrl = getAbsoluteSiteUrl("/");
-    const locale = i18n.resolvedLanguage || i18n.language;
+    const locale = getLocaleFromPathname(pathname);
+    const siteUrl = getAbsoluteSiteUrl("/");
+    const servicesUrl = getAbsoluteSiteUrl(localizePath("/services", locale));
+    const homeUrl = getAbsoluteSiteUrl(localizePath("/", locale));
     const servicesDescription =
         t("service.description");
     const servicesStructuredData = {
@@ -33,31 +37,31 @@ function Services(){
                 "@type": "WebPage",
                 "@id": `${servicesUrl}#webpage`,
                 url: servicesUrl,
-                name: "Web, iOS & UI/UX Development Services",
+                name: t("seo.servicesTitle"),
                 description: servicesDescription,
                 inLanguage: locale,
                 isPartOf: {
-                    "@id": `${homeUrl}#website`,
+                    "@id": `${siteUrl}#website`,
                 },
                 about: {
-                    "@id": `${homeUrl}#person`,
+                    "@id": `${siteUrl}#person`,
                 },
             },
             {
                 "@type": "ItemList",
                 "@id": `${servicesUrl}#services`,
-                name: "Development and design services",
+                name: t("seo.servicesTitle"),
                 itemListElement: servicesData.map((service, index) => ({
                     "@type": "ListItem",
                     position: index + 1,
                     item: {
                         "@type": "Service",
-                        name: service.title,
-                        description: service.description,
+                        name: t(service.title),
+                        description: t(service.description),
                         url: `${servicesUrl}#services`,
                         provider: {
                             "@type": "Person",
-                            "@id": `${homeUrl}#person`,
+                            "@id": `${siteUrl}#person`,
                             name: siteConfig.name,
                         },
                     },
@@ -75,7 +79,7 @@ function Services(){
                     {
                         "@type": "ListItem",
                         position: 2,
-                        name: "Services",
+                        name: t("service.section"),
                         item: servicesUrl,
                     },
                 ],

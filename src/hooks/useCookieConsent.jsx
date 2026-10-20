@@ -46,9 +46,18 @@ function writeStoredConsent(status) {
 const CookieConsentContext = createContext(null);
 
 export function CookieConsentProvider({ children }) {
-    const [consent, setConsent] = useState(() => readStoredConsent());
-    const [isPromptOpen, setIsPromptOpen] = useState(() => readStoredConsent() === null);
+    // Stored consent is read after mount so the prerendered HTML (rendered without
+    // storage) matches the first client render and the banner never ships in it.
+    const [consent, setConsent] = useState(null);
+    const [isPromptOpen, setIsPromptOpen] = useState(false);
     const [isPromptRequested, setIsPromptRequested] = useState(false);
+
+    useEffect(() => {
+        const storedConsent = readStoredConsent();
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setConsent(storedConsent);
+        setIsPromptOpen(storedConsent === null);
+    }, []);
 
     useEffect(() => {
         if (consent === "accepted") {

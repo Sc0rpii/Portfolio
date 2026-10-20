@@ -14,8 +14,6 @@ const app = (
   </StrictMode>
 )
 
-// react-snap writes the rendered application into #root at build time. Hydrating
-// that markup keeps the initial HTML visible while React attaches its handlers.
 if (rootElement.hasChildNodes()) {
   hydrateRoot(rootElement, app)
 } else {

@@ -1,4 +1,230 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "trailingSlash": false
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/:path+/index.html",
+      "destination": "/:path+",
+      "permanent": true
+    },
+    {
+      "source": "/eng",
+      "destination": "/?lang=en",
+      "permanent": false
+    },
+    {
+      "source": "/eng/:path+",
+      "destination": "/:path+?lang=en",
+      "permanent": false
+    },
+    {
+      "source": "/:page(services|privacy-policy)/eng",
+      "destination": "/:page",
+      "permanent": true
+    },
+    {
+      "source": "/:page(services|privacy-policy)/it",
+      "destination": "/it/:page",
+      "permanent": true
+    },
+    {
+      "source": "/project/:id/eng",
+      "destination": "/project/:id",
+      "permanent": true
+    },
+    {
+      "source": "/project/:id/it",
+      "destination": "/it/project/:id",
+      "permanent": true
+    },
+    {
+      "source": "/",
+      "destination": "/it",
+      "permanent": false,
+      "has": [
+        {
+          "type": "cookie",
+          "key": "lang",
+          "value": {
+            "eq": "it"
+          }
+        }
+      ],
+      "missing": [
+        {
+          "type": "query",
+          "key": "lang"
+        }
+      ]
+    },
+    {
+      "source": "/",
+      "destination": "/it",
+      "permanent": false,
+      "has": [
+        {
+          "type": "header",
+          "key": "accept-language",
+          "value": {
+            "pre": "it"
+          }
+        }
+      ],
+      "missing": [
+        {
+          "type": "cookie",
+          "key": "lang"
+        },
+        {
+          "type": "query",
+          "key": "lang"
+        }
+      ]
+    },
+    {
+      "source": "/it",
+      "destination": "/",
+      "permanent": false,
+      "has": [
+        {
+          "type": "cookie",
+          "key": "lang",
+          "value": {
+            "eq": "en"
+          }
+        }
+      ],
+      "missing": [
+        {
+          "type": "query",
+          "key": "lang"
+        }
+      ]
+    },
+    {
+      "source": "/it",
+      "destination": "/",
+      "permanent": false,
+      "has": [
+        {
+          "type": "header",
+          "key": "accept-language"
+        }
+      ],
+      "missing": [
+        {
+          "type": "header",
+          "key": "accept-language",
+          "value": {
+            "pre": "it"
+          }
+        },
+        {
+          "type": "cookie",
+          "key": "lang"
+        },
+        {
+          "type": "query",
+          "key": "lang"
+        }
+      ]
+    },
+    {
+      "source": "/:path(services|privacy-policy|project/[^/]+)",
+      "destination": "/it/:path",
+      "permanent": false,
+      "has": [
+        {
+          "type": "cookie",
+          "key": "lang",
+          "value": {
+            "eq": "it"
+          }
+        }
+      ],
+      "missing": [
+        {
+          "type": "query",
+          "key": "lang"
+        }
+      ]
+    },
+    {
+      "source": "/:path(services|privacy-policy|project/[^/]+)",
+      "destination": "/it/:path",
+      "permanent": false,
+      "has": [
+        {
+          "type": "header",
+          "key": "accept-language",
+          "value": {
+            "pre": "it"
+          }
+        }
+      ],
+      "missing": [
+        {
+          "type": "cookie",
+          "key": "lang"
+        },
+        {
+          "type": "query",
+          "key": "lang"
+        }
+      ]
+    },
+    {
+      "source": "/it/:path(services|privacy-policy|project/[^/]+)",
+      "destination": "/:path",
+      "permanent": false,
+      "has": [
+        {
+          "type": "cookie",
+          "key": "lang",
+          "value": {
+            "eq": "en"
+          }
+        }
+      ],
+      "missing": [
+        {
+          "type": "query",
+          "key": "lang"
+        }
+      ]
+    },
+    {
+      "source": "/it/:path(services|privacy-policy|project/[^/]+)",
+      "destination": "/:path",
+      "permanent": false,
+      "has": [
+        {
+          "type": "header",
+          "key": "accept-language"
+        }
+      ],
+      "missing": [
+        {
+          "type": "header",
+          "key": "accept-language",
+          "value": {
+            "pre": "it"
+          }
+        },
+        {
+          "type": "cookie",
+          "key": "lang"
+        },
+        {
+          "type": "query",
+          "key": "lang"
+        }
+      ]
+    }
+  ]
 }

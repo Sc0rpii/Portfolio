@@ -20,23 +20,26 @@ import {
 import { certificationsData } from "./data/certificationsData";
 import { reviewsData } from "./data/reviewsData";
 import { useTranslation } from "react-i18next";
+import { getLocaleFromPathname, localizePath } from "./utils/locale";
 
 function App() {
-  const {t, i18n} = useTranslation();
-  const { hash, state } = useLocation();
+  const {t, } = useTranslation();
+  const { pathname, hash, state } = useLocation();
   const isScrollSync = state?.scrollSync === true;
   useScrollReveal();
-  const homeUrl = getAbsoluteSiteUrl("/");
-  const locale = i18n.resolvedLanguage || i18n.language;
+  const locale = getLocaleFromPathname(pathname);
+  // Entity ids stay language-neutral; page URLs follow the current language.
+  const siteUrl = getAbsoluteSiteUrl("/");
+  const homeUrl = getAbsoluteSiteUrl(localizePath("/", locale));
   const homeDescription = t("seo.homeDescription");
   const homeStructuredData = {
     "@context": "https://schema.org",
     "@graph": [
       {
         "@type": "Person",
-        "@id": `${homeUrl}#person`,
+        "@id": `${siteUrl}#person`,
         name: siteConfig.name,
-        url: homeUrl,
+        url: siteUrl,
         jobTitle: siteConfig.role,
         description: homeDescription,
         sameAs: siteConfig.socialProfiles,
@@ -52,13 +55,13 @@ function App() {
       },
       {
         "@type": "WebSite",
-        "@id": `${homeUrl}#website`,
+        "@id": `${siteUrl}#website`,
         url: homeUrl,
         name: siteConfig.name,
         description: homeDescription,
         inLanguage: locale,
         author: {
-          "@id": `${homeUrl}#person`,
+          "@id": `${siteUrl}#person`,
         },
       },
       {
@@ -69,10 +72,10 @@ function App() {
         description: homeDescription,
         inLanguage: locale,
         mainEntity: {
-          "@id": `${homeUrl}#person`,
+          "@id": `${siteUrl}#person`,
         },
         isPartOf: {
-          "@id": `${homeUrl}#website`,
+          "@id": `${siteUrl}#website`,
         },
       },
     ],

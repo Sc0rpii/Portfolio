@@ -6,14 +6,8 @@ function useScrollReveal() {
             "[data-reveal], [data-timeline-item]"
         );
 
-        if (navigator.userAgent === "ReactSnap") {
-            window.snapSaveState = () => {
-                document.documentElement.dataset.prerendered = "true";
-            };
-
-            return undefined;
-        }
-
+        // The prerendered HTML ships with data-prerendered so its content is visible
+        // before JavaScript runs; the reveal animations take over from here.
         delete document.documentElement.dataset.prerendered;
 
         const prefersReducedMotion = window.matchMedia(
